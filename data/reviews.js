@@ -897,26 +897,27 @@ window.PC_RUSH_REVIEWS = [
           "Cette toolbox aide à préparer la review ; elle ne remplace pas les consignes officielles qui peuvent évoluer.",
       },
       {
-        title: "Tu as le droit d’être en train d’apprendre",
-        kind: "Pour toi",
-        tags: ["syndrome de l’imposteur", "confiance", "progression"],
+        title: "Tu n’as pas besoin d’être infaillible pour être un bon tuteur",
+        kind: "Pour le tuteur",
+        tags: ["syndrome de l’imposteur", "confiance", "tutorat"],
         body: [
-          "Si tu as parfois l’impression d’être une fraude, de ne pas avancer assez vite ou de ne pas être à la hauteur, cette impression n’est pas une preuve.",
-          "Tu es dans un environnement conçu pour te confronter à des choses que tu ne sais pas encore faire. Bloquer, demander de l’aide, recommencer et découvrir qu’une autre personne a compris plus vite font partie du parcours.",
-          "Tu n’as pas besoin de tout savoir pour avoir ta place ici. Ta valeur ne se mesure ni à la vitesse de ton voisin, ni à une review difficile, ni à un programme qui refuse de compiler à deux heures du matin.",
-          "Regarde les faits : ce que tu comprends aujourd’hui et que tu ne comprenais pas hier, les erreurs que tu sais maintenant diagnostiquer, les questions que tu oses poser et les personnes que tu aides à ton tour.",
-          "Être compétent ne signifie pas ne jamais douter. Cela signifie continuer à apprendre, vérifier ce que l’on croit savoir et accepter de ne pas encore avoir toutes les réponses."
+          "Si tu as parfois peur de ne pas être assez technique, de poser une mauvaise question ou de rater un problème important, ce doute ne signifie pas que tu es une fraude.",
+          "Être tuteur ne veut pas dire connaître toutes les solutions, réciter tout le C de mémoire ou être la personne la plus avancée de la salle. Ton rôle est d’installer un cadre sûr, d’observer rigoureusement, de poser des questions utiles et de savoir quand demander un second avis.",
+          "Une bonne review ne dépend pas d’une performance parfaite. Elle dépend de ton honnêteté : vérifier plutôt qu’inventer, dire « je ne suis pas certain » quand il le faut, revenir au sujet et solliciter le staff lorsque la situation dépasse ton rôle.",
+          "Tu peux apprendre pendant que tu accompagnes. Chaque groupe, chaque architecture et chaque question difficile enrichissent aussi ta propre compréhension.",
+          "Regarde les faits : les personnes que tu as aidées à formuler leur raisonnement, les erreurs que tu as rendues compréhensibles et les feedbacks qui leur ont donné une prochaine étape claire.",
+          "Un bon tuteur n’est pas celui qui ne doute jamais. C’est celui qui transforme son doute en vérification, reste juste avec le groupe et continue lui aussi à progresser."
         ],
         questions: [
-          "Qu’est-ce que je sais faire aujourd’hui que je ne savais pas faire en arrivant ?",
-          "Quel petit progrès concret ai-je fait cette semaine ?",
-          "À qui puis-je demander de l’aide sans rester seul avec ce doute ?"
+          "Quels faits ai-je réellement observés pendant cette review ?",
+          "Qu’est-ce que j’ai aidé le groupe à mieux comprendre ?",
+          "Sur quel point puis-je demander un second avis au staff ou à un autre tuteur ?"
         ],
         tests: [],
         alert:
-          "Si ce sentiment devient envahissant, t’isole ou te fait souffrir durablement, parle-en à une personne de confiance, au staff ou à un professionnel. Tu n’as pas à porter ça seul.",
+          "Si la pression du rôle devient envahissante, t’isole ou te fait souffrir durablement, parle-en à une personne de confiance, au staff ou à un professionnel. Accompagner les autres ne t’oblige pas à tout porter seul.",
         tutorNote:
-          "Tu n’es pas ici parce que tu sais déjà tout faire. Tu es ici pour apprendre à faire des choses qui te semblaient impossibles. Avance une étape après l’autre : tu as ta place."
+          "Tu as été choisi pour accompagner, pas pour être parfait. Prépare-toi, reste curieux, demande de l’aide quand il le faut et fais confiance à ta capacité à apprendre : tu as ta place comme tuteur."
       },
     ],
   },
