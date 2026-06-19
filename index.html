@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PCRushes - Guide tuteur</title>
+    <meta
+      name="description"
+      content="Guide local pour conduire des reviews de rush C utiles, rigoureuses et bienveillantes."
+    >
+    <link rel="stylesheet" href="styles/main.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Aller au contenu</a>
+
+    <aside class="sidebar" aria-label="Navigation du guide">
+      <div class="brand">
+        <p>Guide tuteur</p>
+        <h1>PCRushes</h1>
+      </div>
+      <nav id="review-nav" class="review-nav" aria-label="Catégories"></nav>
+      <div class="site-links" aria-label="Autres notebooks">
+        <p>Autres notebooks</p>
+        <a href="../SwimmingPy/index.html">SwimmingPy</a>
+        <a href="../SysAndNetAdmin/index.html">Sys &amp; Net Admin</a>
+      </div>
+    </aside>
+
+    <main id="content" class="content" tabindex="-1">
+      <header class="hero">
+        <p class="eyebrow">Reviews de rush C</p>
+        <h2>Évaluer clairement, faire progresser réellement.</h2>
+        <p data-reading>
+          Une trame pratique pour tester le rendu, comprendre le groupe et transmettre les bons concepts sans refaire le projet à sa place.
+        </p>
+      </header>
+
+      <section class="toolbar" aria-label="Outils du guide">
+        <label for="search-input">Recherche</label>
+        <input
+          id="search-input"
+          type="search"
+          autocomplete="off"
+          placeholder="parsing, récursivité, malloc, triche..."
+        >
+        <button id="reading-toggle" class="toggle-button" type="button" aria-pressed="false">
+          Mode lecture assistée
+        </button>
+        <button id="reset-session" type="button">Nouvelle séance</button>
+      </section>
+
+      <section id="results-panel" class="results-panel" hidden>
+        <div class="section-title">
+          <h2>Résultats</h2>
+          <span id="results-count"></span>
+        </div>
+        <ul id="results-list" class="results-list"></ul>
+      </section>
+
+      <section id="review-panel" class="review-panel" aria-live="polite"></section>
+    </main>
+
+    <script src="data/reviews.js"></script>
+    <script src="scripts/reading-mode.js"></script>
+    <script src="scripts/app.js"></script>
+  </body>
+</html>
