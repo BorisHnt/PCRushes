@@ -860,7 +860,7 @@ window.PC_RUSH_REVIEWS = [
           "git status et git diff servent à vérifier ce qui appartient réellement au rendu.",
         ],
         commands:
-          "pwd\nls -la\ncd ex00\nfind . -maxdepth 2 -type f -print\nfile ./rush-01\nwc -l *.c\ngrep -RIn \"malloc\\|free\\|return\" .\ncc -Wall -Wextra -Werror *.c -o programme\n./programme > output.txt 2> errors.txt\n./programme 2>&1 | cat -e\necho $?\ndiff -u expected.txt output.txt\ngit status --short\ngit diff --check\ngit diff\nnorminette",
+          "pwd\nls -la\ncd ex00\ntree -pflart\nfind . -maxdepth 2 -type f -print\nfile ./rush-01\nwc -l *.c\ngrep -RIn \"malloc\\|free\\|return\" .\ncc -Wall -Wextra -Werror *.c -o programme\n./programme > output.txt 2> errors.txt\n./programme 2>&1 | cat -e\necho $?\ndiff -u expected.txt output.txt\ngit status --short\ngit diff --check\ngit diff\nnorminette",
         questions: [
           "Quelle différence entre >, >>, 2> et 2>&1 ?",
           "Pourquoi git diff --check est-il utile avant un rendu ?",
@@ -877,6 +877,269 @@ window.PC_RUSH_REVIEWS = [
           "Évite les commandes destructrices pendant une review. N’utilise pas rm, git reset ou git checkout pour nettoyer le dépôt d’un groupe.",
         tutorNote:
           "Le but n’est pas de mémoriser toutes les options, mais de savoir construire une démarche reproductible.",
+      },
+      {
+        title: "Se repérer : pwd, ls et cd",
+        kind: "Commandes",
+        tags: ["pwd", "ls", "cd", "navigation"],
+        body: [
+          "pwd affiche le chemin absolu du dossier courant. C’est la première commande à lancer pour confirmer que la review se déroule dans le bon dépôt.",
+          "ls affiche le contenu d’un dossier. Avec -l, il utilise un format détaillé : permissions, propriétaire, groupe, taille, date et nom.",
+          "Avec -a, ls inclut les entrées cachées dont le nom commence par un point, comme .git ou .gitignore.",
+          "ls -la combine donc l’affichage détaillé et les fichiers cachés.",
+          "cd ex00 change le dossier courant pour entrer dans ex00. cd .. remonte d’un niveau et cd - revient au dossier précédent."
+        ],
+        commands:
+          "pwd\nls\nls -la\ncd ex00\npwd\ncd ..\ncd -",
+        questions: [
+          "Pourquoi vérifier pwd avant de lancer la compilation ?",
+          "Quelle différence entre ls, ls -l et ls -la ?",
+          "Pourquoi .git n’apparaît-il pas avec un simple ls ?"
+        ],
+        tests: [
+          "Faire identifier le dépôt courant sans regarder l’invite du terminal.",
+          "Faire entrer dans ex00 puis revenir au dossier précédent."
+        ],
+        alert:
+          "Un cd exécuté sans vérifier le chemin peut conduire à tester ou modifier le mauvais projet.",
+        tutorNote:
+          "Réflexe de review : pwd, puis ls -la, avant toute autre manipulation."
+      },
+      {
+        title: "Visualiser l’arborescence : tree -pflart",
+        kind: "Commandes",
+        tags: ["tree", "arborescence", "permissions", "liens"],
+        body: [
+          "tree affiche récursivement les dossiers et fichiers sous forme d’arbre. C’est pratique pour comprendre rapidement l’organisation d’un projet.",
+          "-p affiche les protections, c’est-à-dire les permissions de chaque entrée.",
+          "-f affiche le chemin complet depuis le point de départ au lieu du seul nom.",
+          "-l suit les liens symboliques qui pointent vers des dossiers.",
+          "-a inclut les fichiers cachés.",
+          "-r inverse l’ordre de tri choisi.",
+          "-t trie selon la date de dernière modification ; combiné à -r, l’ordre temporel est inversé.",
+          "Les options courtes peuvent être regroupées : tree -pflart équivaut à écrire séparément -p -f -l -a -r -t."
+        ],
+        commands:
+          "tree\ntree -L 2\ntree -p -f -l -a -r -t\ntree -pflart\ntree -a --gitignore -L 3",
+        questions: [
+          "Quelle option affiche les permissions ?",
+          "Pourquoi -a peut-il produire beaucoup plus de résultats ?",
+          "Quel risque introduit -l avec un lien symbolique vers un gros dossier ?",
+          "À quoi sert -L 2 ?"
+        ],
+        tests: [
+          "Comparer tree et tree -a.",
+          "Limiter l’affichage à deux niveaux avec -L 2.",
+          "Repérer les permissions et chemins complets dans tree -pflart."
+        ],
+        alert:
+          "L’option -l suit les liens symboliques. Elle peut sortir du projet ou parcourir une arborescence volumineuse. Omet-la si tu veux seulement inspecter la structure du dépôt.",
+        tutorNote:
+          "Pour une review rapide et prudente, tree -a -L 3 est souvent plus lisible que tree -pflart."
+      },
+      {
+        title: "Lister précisément : find",
+        kind: "Commandes",
+        tags: ["find", "maxdepth", "type"],
+        body: [
+          "find parcourt une arborescence et sélectionne des entrées selon des critères.",
+          "Le point indique que la recherche commence dans le dossier courant.",
+          "-maxdepth 2 limite la descente au dossier courant et à deux niveaux de profondeur.",
+          "-type f conserve uniquement les fichiers ordinaires, pas les dossiers.",
+          "-print affiche chaque chemin sélectionné.",
+          "Contrairement à tree, find est surtout conçu pour filtrer et réutiliser les résultats dans d’autres commandes."
+        ],
+        commands:
+          "find . -maxdepth 2 -type f -print\nfind ex00 -maxdepth 1 -type f -name '*.c' -print\nfind . -type f -name '*.h' -print",
+        questions: [
+          "Que représente le point placé après find ?",
+          "Pourquoi utiliser -type f ?",
+          "Quelle différence entre -maxdepth 1 et -maxdepth 2 ?",
+          "Pourquoi protéger *.c avec des quotes dans -name '*.c' ?"
+        ],
+        tests: [
+          "Lister seulement les fichiers C de ex00.",
+          "Vérifier qu’aucun fichier nécessaire n’est caché trop profondément."
+        ],
+        alert:
+          "find peut parcourir énormément de fichiers sans limite de profondeur. Commence avec un périmètre précis.",
+        tutorNote:
+          "find donne une liste exploitable ; tree donne surtout une vue humaine de la structure."
+      },
+      {
+        title: "Inspecter les fichiers : file, wc et grep",
+        kind: "Commandes",
+        tags: ["file", "wc", "grep", "recherche"],
+        body: [
+          "file inspecte le contenu d’un fichier pour identifier son type réel. Sur ./rush-01, il permet de vérifier qu’il s’agit d’un exécutable et d’observer son architecture.",
+          "wc compte des éléments. L’option -l compte les lignes ; wc -l *.c affiche donc le nombre de lignes de chaque fichier C correspondant.",
+          "grep recherche du texte. -R parcourt récursivement les sous-dossiers, -I ignore les fichiers binaires et -n affiche le numéro de ligne.",
+          "Dans l’expression malloc\\|free\\|return, la barre verticale échappée représente une alternative avec le grep utilisé ici : rechercher malloc, free ou return.",
+          "Le point final demande à grep de rechercher à partir du dossier courant."
+        ],
+        commands:
+          "file ./rush-01\nwc -l *.c\ngrep -RIn \"malloc\\|free\\|return\" .\ngrep -RIn --include='*.c' --include='*.h' \"Error\" .",
+        questions: [
+          "Pourquoi file est-il plus fiable que l’extension du nom ?",
+          "Que signifie le joker *.c ?",
+          "Que font précisément -R, -I et -n ?",
+          "Pourquoi un résultat grep ne prouve-t-il pas que la mémoire est bien gérée ?"
+        ],
+        tests: [
+          "Repérer toutes les allocations et libérations.",
+          "Rechercher les sorties Error et Dict Error.",
+          "Identifier les fichiers anormalement volumineux avec wc -l."
+        ],
+        alert:
+          "grep trouve des chaînes, pas des comportements. Il aide à orienter la lecture mais ne remplace jamais l’exécution et le raisonnement.",
+        tutorNote:
+          "Sur les grep modernes, grep -REn 'malloc|free|return' . est une variante plus lisible avec les expressions régulières étendues."
+      },
+      {
+        title: "Compiler : cc et ses options",
+        kind: "Commandes",
+        tags: ["cc", "warnings", "exécutable"],
+        body: [
+          "cc lance le compilateur C disponible sur le système.",
+          "*.c est développé par le shell en liste de tous les fichiers dont le nom se termine par .c dans le dossier courant.",
+          "-Wall active un ensemble important d’avertissements courants.",
+          "-Wextra active des avertissements supplémentaires.",
+          "-Werror transforme les avertissements en erreurs de compilation.",
+          "-o programme fixe le nom du fichier exécutable produit. Sans -o, le compilateur produit généralement a.out."
+        ],
+        commands:
+          "cc -Wall -Wextra -Werror *.c -o programme\n./programme\nfile ./programme",
+        questions: [
+          "Quelle différence entre une erreur et un warning ?",
+          "Pourquoi -Werror est-il utile dans la Piscine ?",
+          "Que devient *.c avant l’exécution de cc ?",
+          "Que se passe-t-il si deux fichiers définissent le même symbole ?"
+        ],
+        tests: [
+          "Compiler depuis le dossier attendu.",
+          "Vérifier le code retour de cc.",
+          "Confirmer le type du résultat avec file."
+        ],
+        alert:
+          "La commande ne compile que les fichiers C du dossier courant. Elle ignore les sources rangées dans des sous-dossiers.",
+        tutorNote:
+          "Faire reformuler chaque option est plus utile que faire réciter la commande complète."
+      },
+      {
+        title: "Redirections, pipe, cat -e et code retour",
+        kind: "Commandes",
+        tags: ["stdout", "stderr", "pipe", "exit status"],
+        body: [
+          "Un programme possède notamment une sortie standard, stdout, et une sortie d’erreur, stderr.",
+          "> output.txt envoie stdout dans output.txt en remplaçant son ancien contenu.",
+          "2> errors.txt envoie stderr dans errors.txt ; le chiffre 2 désigne le descripteur de stderr.",
+          "2>&1 demande à stderr de rejoindre la destination actuelle de stdout.",
+          "Le pipe | envoie la sortie standard de la commande de gauche vers l’entrée standard de la commande de droite.",
+          "cat -e rend visibles les fins de ligne avec un symbole $, ce qui permet de repérer les espaces et retours manquants.",
+          "echo $? affiche le code de retour de la dernière commande : 0 indique généralement un succès, une autre valeur signale un état différent."
+        ],
+        commands:
+          "./programme > output.txt 2> errors.txt\n./programme 2>&1 | cat -e\necho $?\n./programme >> output.txt",
+        questions: [
+          "Quelle sortie est capturée par > ?",
+          "Pourquoi le nombre 2 représente-t-il stderr ?",
+          "Quelle différence entre > et >> ?",
+          "À quelle commande correspond $? ?"
+        ],
+        tests: [
+          "Capturer stdout et stderr dans deux fichiers différents.",
+          "Afficher ensemble les deux flux avec cat -e.",
+          "Comparer le code retour après un succès et une erreur."
+        ],
+        alert:
+          "echo $? doit être lancé immédiatement après la commande étudiée, sinon il affichera le statut d’une autre commande.",
+        tutorNote:
+          "cat -e n’ajoute pas les symboles au fichier : il les montre uniquement dans son affichage."
+      },
+      {
+        title: "Comparer une sortie : diff -u",
+        kind: "Commandes",
+        tags: ["diff", "sortie attendue", "tests"],
+        body: [
+          "diff compare deux fichiers ligne par ligne.",
+          "-u demande le format unifié, plus lisible : quelques lignes de contexte entourent les différences.",
+          "Dans diff -u expected.txt output.txt, le premier fichier représente la référence et le second le résultat obtenu.",
+          "Les lignes précédées de - appartiennent à la référence mais manquent ou diffèrent dans le résultat.",
+          "Les lignes précédées de + viennent du résultat obtenu.",
+          "Sans différence, diff n’affiche rien et retourne généralement 0."
+        ],
+        commands:
+          "diff -u expected.txt output.txt\necho $?\ndiff -u <(printf 'Error\\n') <(./rush-01 mauvais_argument)",
+        questions: [
+          "Pourquoi l’ordre des deux fichiers compte-t-il ?",
+          "Que signifient les lignes + et - ?",
+          "Que signifie une absence totale de sortie de diff ?"
+        ],
+        tests: [
+          "Comparer une sortie correcte.",
+          "Ajouter un espace terminal pour observer la différence.",
+          "Comparer un saut de ligne manquant."
+        ],
+        alert:
+          "La syntaxe <(...) est une fonctionnalité de certains shells comme Bash ; elle n’est pas du C et n’est pas disponible partout.",
+        tutorNote:
+          "Pour une méthode portable, écris d’abord les deux sorties dans des fichiers, puis utilise diff -u."
+      },
+      {
+        title: "Contrôler le rendu Git",
+        kind: "Commandes",
+        tags: ["git status", "git diff", "whitespace"],
+        body: [
+          "git status --short affiche un résumé compact de l’état du dépôt.",
+          "Les deux colonnes indiquent l’état dans l’index et dans le dossier de travail. ?? indique un fichier non suivi.",
+          "git diff affiche les modifications non indexées par rapport à l’index.",
+          "git diff --check ne montre pas tout le diff : il recherche surtout des problèmes d’espaces, comme les espaces en fin de ligne ou certaines erreurs de whitespace.",
+          "Ces commandes ne modifient pas le dépôt ; elles servent à comprendre ce qui sera réellement rendu."
+        ],
+        commands:
+          "git status --short\ngit diff --check\ngit diff\ngit diff --cached",
+        questions: [
+          "Que signifie ?? dans git status --short ?",
+          "Pourquoi un fichier non suivi peut-il manquer au rendu ?",
+          "Quelle différence entre git diff et git diff --cached ?",
+          "Pourquoi git diff --check peut réussir alors que le code est faux ?"
+        ],
+        tests: [
+          "Identifier les fichiers modifiés et non suivis.",
+          "Vérifier les modifications indexées et non indexées.",
+          "Repérer les erreurs d’espaces avant la soumission."
+        ],
+        alert:
+          "Pendant une review, utilise Git pour inspecter. Ne nettoie pas le dépôt du groupe avec des commandes de restauration destructrices.",
+        tutorNote:
+          "Un fichier présent sur le disque mais non suivi par Git peut ne pas se trouver dans la soumission attendue."
+      },
+      {
+        title: "Vérifier la Norme : norminette",
+        kind: "Commandes",
+        tags: ["Norme", "norminette", "style"],
+        body: [
+          "norminette analyse les fichiers C et headers selon les règles de style demandées par 42.",
+          "Sans argument, elle inspecte généralement le dossier courant selon sa configuration.",
+          "On peut lui donner un dossier ou des fichiers précis pour limiter le contrôle.",
+          "Une sortie sans erreur de Norme ne garantit ni que le programme compile, ni qu’il fonctionne.",
+          "Inversement, un programme fonctionnel peut rester non conforme à la Norme."
+        ],
+        commands:
+          "norminette\nnorminette ex00\nnorminette *.c *.h",
+        questions: [
+          "Que vérifie norminette ?",
+          "Que ne vérifie-t-elle pas ?",
+          "Pourquoi faut-il aussi compiler et exécuter des tests ?"
+        ],
+        tests: [
+          "Lancer la Norme sur le périmètre réellement rendu.",
+          "Relier chaque erreur affichée au fichier et à la ligne concernés."
+        ],
+        alert:
+          "La version de Norminette et les règles applicables peuvent évoluer. Utilise l’outil fourni dans l’environnement de la Piscine.",
+        tutorNote:
+          "Norme, compilation et comportement sont trois contrôles complémentaires."
       },
       {
         title: "Corrections techniques à garder en tête",
