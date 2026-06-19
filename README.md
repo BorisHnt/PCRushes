@@ -1,6 +1,6 @@
 # PCRushes
 
-Guide statique local pour préparer et conduire les reviews des rushs de Piscine C.
+Guide statique local pour aider les tuteur·rices à préparer et conduire les reviews des rushs de Piscine C.
 
 ## Catégories
 

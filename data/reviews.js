@@ -26,7 +26,7 @@ window.PC_RUSH_REVIEWS = [
         tags: ["groupe", "ressenti", "cadre"],
         body: [
           "Commence par rassurer : la review sert à observer le travail, comprendre le raisonnement et transmettre des pistes de progression.",
-          "Demande comment le week-end s’est déroulé, où chacun en est dans la Piscine et ce qui a été difficile.",
+          "Demande comment le week-end s’est déroulé, où chacun·e en est dans la Piscine et ce qui a été difficile.",
           "Le ressenti donne du contexte, mais ne remplace jamais les vérifications techniques.",
         ],
         questions: [
@@ -72,7 +72,7 @@ window.PC_RUSH_REVIEWS = [
         tags: ["lead", "équipe", "explication"],
         body: [
           "Demande un tour du code en quelques minutes : point d’entrée, boucles, choix du caractère et sortie.",
-          "Puis change de personne. Le lead ne doit pas être le seul capable d’expliquer.",
+          "Puis change de personne. Le lead ne doit pas être la seule personne capable d’expliquer.",
           "Comprendre vaguement en relisant n’est pas suffisant : chaque membre doit pouvoir reconstruire la logique essentielle.",
         ],
         questions: [
@@ -143,7 +143,7 @@ window.PC_RUSH_REVIEWS = [
           "Compile explicitement avec les flags du sujet, puis lance plusieurs dimensions en modifiant uniquement le main de test.",
           "cat -e rend les fins de ligne visibles et aide à repérer un espace ou un saut de ligne incorrect.",
           "diff permet de comparer la sortie obtenue à une sortie attendue sans se fier uniquement à l’œil.",
-          "Les piscineux doivent savoir naviguer dans le dépôt, afficher leurs fichiers et relancer une compilation proprement.",
+          "Les piscineux·ses doivent savoir naviguer dans le dépôt, afficher leurs fichiers et relancer une compilation proprement.",
         ],
         commands:
           "pwd\nls -la\nfind ex00 -maxdepth 1 -type f -printf '%f\\n' | sort\ncc -Wall -Wextra -Werror ex00/main.c ex00/ft_putchar.c ex00/rush0X.c -o rush00\n./rush00 | cat -e\n./rush00 > actual.txt\ndiff -u expected.txt actual.txt\nnorminette ex00",
@@ -161,7 +161,7 @@ window.PC_RUSH_REVIEWS = [
         alert:
           "Ne conserve pas dans le rendu un main de test qui remplace accidentellement celui présenté par le groupe.",
         tutorNote:
-          "Commandes à faire apprendre : pwd, ls, cd, find, cc, ./programme, cat -e et diff.",
+          "Commandes à faire apprendre aux piscineux·ses : pwd, ls, cd, find, cc, ./programme, cat -e et diff.",
       },
       {
         title: "Feedback de fin",
@@ -322,7 +322,7 @@ window.PC_RUSH_REVIEWS = [
         alert:
           "Ne challenge les pointeurs que jusqu’au niveau réellement utilisé par le projet.",
         tutorNote:
-          "L’objectif est de vérifier qu’ils savent suivre une donnée, pas de tendre un piège de syntaxe.",
+          "L’objectif est de vérifier que les membres savent suivre une donnée, pas de tendre un piège de syntaxe.",
       },
       {
         title: "Stack, heap et malloc",
@@ -385,7 +385,7 @@ window.PC_RUSH_REVIEWS = [
           "Compile exactement comme prévu par le sujet et garde les erreurs de parsing séparées des tests du solveur.",
           "timeout permet d’éviter qu’une récursion défaillante bloque indéfiniment la séance.",
           "Un outil mémoire peut révéler les accès invalides et les fuites, mais son nom dépend de la machine disponible.",
-          "Les piscineux doivent savoir rediriger une sortie, lire un code de retour et répéter un test sans modifier le programme.",
+          "Les piscineux·ses doivent savoir rediriger une sortie, lire un code de retour et répéter un test sans modifier le programme.",
         ],
         commands:
           "cc -Wall -Wextra -Werror -o rush-01 *.c\n./rush-01 2>&1 | cat -e\n./rush-01 \"4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2\" | cat -e\ntimeout 5s ./rush-01 \"1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\"\necho $?\npython3 generator.py\nvalgrind --leak-check=full --track-origins=yes ./rush-01 \"4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2\"\nnorminette",
@@ -404,7 +404,7 @@ window.PC_RUSH_REVIEWS = [
         alert:
           "valgrind peut ne pas être installé. Sur macOS, utilise l’outil mémoire fourni par l’environnement au lieu de prétendre que la commande est universelle.",
         tutorNote:
-          "Commandes à faire apprendre : redirections, echo $?, timeout, python3, et lecture d’un rapport mémoire.",
+          "Commandes à faire apprendre aux piscineux·ses : redirections, echo $?, timeout, python3, et lecture d’un rapport mémoire.",
       },
     ],
   },
@@ -634,7 +634,7 @@ window.PC_RUSH_REVIEWS = [
           "Travaille sur une copie du dictionnaire lorsque tu modifies ses valeurs pour les tests.",
           "grep aide à retrouver une clé, sed ou un éditeur permet de préparer une variation contrôlée, et cmp ou diff vérifie les fichiers.",
           "Teste séparément la construction, l’ouverture du fichier, le parsing, la conversion et le nettoyage mémoire.",
-          "Les piscineux doivent comprendre les permissions, les descripteurs de fichier et les codes de retour de make et du programme.",
+          "Les piscineux·ses doivent comprendre les permissions, les descripteurs de fichier et les codes de retour de make et du programme.",
         ],
         commands:
           "make fclean && make\nmake\n./rush-02 42 | cat -e\ncp numbers.dict /tmp/review-numbers.dict\ngrep -n '^20[[:space:]]*:' /tmp/review-numbers.dict\nsed -i 's/^20[[:space:]]*:.*$/20 : hey everybody !/' /tmp/review-numbers.dict\n./rush-02 /tmp/review-numbers.dict 20 | cat -e\n./rush-02 missing.dict 42 | cat -e\nchmod a-r /tmp/review-numbers.dict\n./rush-02 /tmp/review-numbers.dict 42 | cat -e\nchmod a+r /tmp/review-numbers.dict\nvalgrind --leak-check=full --track-fds=yes ./rush-02 100000\necho $?",
@@ -653,7 +653,7 @@ window.PC_RUSH_REVIEWS = [
         alert:
           "La syntaxe de sed -i varie selon les systèmes. Prépare le fichier manuellement si nécessaire et restaure toujours ses permissions.",
         tutorNote:
-          "Commandes à faire apprendre : make, cp, grep, chmod, cat -e, redirections et inspection mémoire.",
+          "Commandes à faire apprendre aux piscineux·ses : make, cp, grep, chmod, cat -e, redirections et inspection mémoire.",
       },
       {
         title: "Mémoire et chemins d’erreur",
@@ -687,7 +687,7 @@ window.PC_RUSH_REVIEWS = [
     id: "toolbox",
     number: "TB",
     shortTitle: "Toolbox",
-    title: "Toolbox du tuteur",
+    title: "Toolbox des tuteur·rices",
     focus: "Posture, feedback, escalade",
     duration: "À consulter au besoin",
     goal: "Review utile et sûre",
@@ -698,7 +698,7 @@ window.PC_RUSH_REVIEWS = [
       "Faire parler plusieurs membres, pas uniquement le lead.",
       "Séparer faits observés, interprétation et conseil.",
       "Tester avant d’enseigner ou d’optimiser.",
-      "Ne pas humilier, diagnostiquer ni arbitrer seul un conflit.",
+      "Ne pas humilier, diagnostiquer ni arbitrer seul·e un conflit.",
       "Ne pas fournir une solution complète pendant l’évaluation.",
       "Faire remonter immédiatement les situations sensibles au bon interlocuteur.",
       "Terminer par un feedback actionnable et laisser des questions.",
@@ -732,7 +732,7 @@ window.PC_RUSH_REVIEWS = [
         tags: ["questions", "niveau", "progression"],
         body: [
           "Pose d’abord une question ouverte, puis demande un exemple dans leur code.",
-          "Ajuste la profondeur à ce qu’ils ont réellement utilisé.",
+          "Ajuste la profondeur à ce que les membres ont réellement utilisé.",
           "Une bonne question permet de montrer une compréhension ; une devinette cherche surtout à faire échouer.",
           "Si une personne bloque, reformule une fois avant de conclure qu’elle ne maîtrise pas.",
         ],
@@ -755,7 +755,7 @@ window.PC_RUSH_REVIEWS = [
           "Le problème n’est pas seulement que le travail a été mal réparti : le groupe a perdu une occasion d’apprentissage.",
           "Interroge plusieurs membres sur une partie centrale et demande une reconstruction simple.",
           "Explique qu’un lead doit organiser la montée en compétence, pas seulement produire puis faire relire.",
-          "Un périmètre plus petit mais maîtrisé par tous aurait parfois été préférable.",
+          "Un périmètre plus petit mais maîtrisé par tou·tes aurait parfois été préférable.",
         ],
         questions: [
           "Quelle partie pourrais-tu réécrire sans regarder ?",
@@ -763,9 +763,9 @@ window.PC_RUSH_REVIEWS = [
           "Qu’auriez-vous pu simplifier pour que tout le monde participe ?",
         ],
         alert:
-          "Critique le fonctionnement observé, pas la valeur personnelle du lead ou des membres moins avancés.",
+          "Critique le fonctionnement observé, pas la valeur personnelle du lead ou des membres moins avancé·es.",
         tutorNote:
-          "Formulation utile : « Le rendu avance, mais la compréhension n’a pas circulé. Au prochain rush, prévoyez des points de transmission et une partie réécrite par chacun. »",
+          "Formulation utile : « Le rendu avance, mais la compréhension n’a pas circulé. Au prochain rush, prévoyez des points de transmission et une partie réécrite par chacun·e. »",
       },
       {
         title: "Évaluer sans corriger",
@@ -794,7 +794,7 @@ window.PC_RUSH_REVIEWS = [
         body: [
           "Si tu observes des indices sérieux de triche ou un travail que personne ne peut expliquer, reste factuel.",
           "Note les éléments observables : incohérences, réponses, fichiers ou circonstances.",
-          "Ne mène pas un interrogatoire, ne menace pas et ne prononce pas seul une sanction.",
+          "Ne mène pas un interrogatoire, ne menace pas et ne prononce pas seul·e une sanction.",
           "Transmets la situation à l’équipe pédagogique selon le canal prévu.",
         ],
         questions: [
@@ -808,13 +808,13 @@ window.PC_RUSH_REVIEWS = [
           "Mail ou signalement pédagogique : faits datés, formulations neutres, aucune conclusion spéculative.",
       },
       {
-        title: "Conflit d’équipe ou problème avec un tuteur",
+        title: "Conflit d’équipe ou problème avec un·e tuteur·rice",
         kind: "Escalade",
         tags: ["conflit", "staff", "sécurité"],
         body: [
           "Écoute brièvement chaque personne sans promettre une résolution immédiate.",
           "Distingue un désaccord de méthode, un conflit persistant et un comportement inacceptable.",
-          "Si la situation a mal tourné avec l’équipe ou un tuteur, préviens le staff.",
+          "Si la situation a mal tourné avec l’équipe ou un·e tuteur·rice, préviens le staff.",
           "En cas de menace, harcèlement, discrimination ou risque immédiat, interromps la séance et cherche de l’aide sans attendre.",
         ],
         questions: [
@@ -825,7 +825,7 @@ window.PC_RUSH_REVIEWS = [
         alert:
           "Ne demande pas à une personne de raconter publiquement des détails sensibles devant tout le groupe.",
         tutorNote:
-          "Le rôle du tuteur est de sécuriser et transmettre, pas de devenir médiateur officiel ou enquêteur.",
+          "Le rôle du ou de la tuteur·rice est de sécuriser et transmettre, pas de devenir médiateur·rice officiel·le ou enquêteur·rice.",
       },
       {
         title: "Feedback clair et exhaustif",
@@ -855,7 +855,7 @@ window.PC_RUSH_REVIEWS = [
         tags: ["shell", "git", "compilation", "debug"],
         body: [
           "Ces commandes forment une boîte à outils minimale pour comprendre où l’on se trouve, ce qui sera évalué et comment reproduire un problème.",
-          "Le piscineux doit pouvoir expliquer la commande avant de la lancer, surtout lorsqu’elle modifie ou supprime des fichiers.",
+          "Chaque piscineux·se doit pouvoir expliquer la commande avant de la lancer, surtout lorsqu’elle modifie ou supprime des fichiers.",
           "Les redirections permettent de conserver une sortie, de comparer deux exécutions et de séparer sortie standard et erreurs.",
           "git status et git diff servent à vérifier ce qui appartient réellement au rendu.",
         ],
@@ -1160,27 +1160,27 @@ window.PC_RUSH_REVIEWS = [
           "Cette toolbox aide à préparer la review ; elle ne remplace pas les consignes officielles qui peuvent évoluer.",
       },
       {
-        title: "Tu n’as pas besoin d’être infaillible pour être un bon tuteur",
-        kind: "Pour le tuteur",
+        title: "Tu n’as pas besoin d’être infaillible pour être un·e bon·ne tuteur·rice",
+        kind: "Pour les tuteur·rices",
         tags: ["syndrome de l’imposteur", "confiance", "tutorat"],
         body: [
           "Si tu as parfois peur de ne pas être assez technique, de poser une mauvaise question ou de rater un problème important, ce doute ne signifie pas que tu es une fraude.",
-          "Être tuteur ne veut pas dire connaître toutes les solutions, réciter tout le C de mémoire ou être la personne la plus avancée de la salle. Ton rôle est d’installer un cadre sûr, d’observer rigoureusement, de poser des questions utiles et de savoir quand demander un second avis.",
-          "Une bonne review ne dépend pas d’une performance parfaite. Elle dépend de ton honnêteté : vérifier plutôt qu’inventer, dire « je ne suis pas certain » quand il le faut, revenir au sujet et solliciter le staff lorsque la situation dépasse ton rôle.",
+          "Être tuteur·rice ne veut pas dire connaître toutes les solutions, réciter tout le C de mémoire ou être la personne la plus avancée de la salle. Ton rôle est d’installer un cadre sûr, d’observer rigoureusement, de poser des questions utiles et de savoir quand demander un second avis.",
+          "Une bonne review ne dépend pas d’une performance parfaite. Elle dépend de ton honnêteté : vérifier plutôt qu’inventer, dire « je ne suis pas certain·e » quand il le faut, revenir au sujet et solliciter le staff lorsque la situation dépasse ton rôle.",
           "Tu peux apprendre pendant que tu accompagnes. Chaque groupe, chaque architecture et chaque question difficile enrichissent aussi ta propre compréhension.",
           "Regarde les faits : les personnes que tu as aidées à formuler leur raisonnement, les erreurs que tu as rendues compréhensibles et les feedbacks qui leur ont donné une prochaine étape claire.",
-          "Un bon tuteur n’est pas celui qui ne doute jamais. C’est celui qui transforme son doute en vérification, reste juste avec le groupe et continue lui aussi à progresser."
+          "Un·e bon·ne tuteur·rice n’est pas une personne qui ne doute jamais. C’est une personne qui transforme son doute en vérification, reste juste avec le groupe et continue elle aussi à progresser."
         ],
         questions: [
           "Quels faits ai-je réellement observés pendant cette review ?",
           "Qu’est-ce que j’ai aidé le groupe à mieux comprendre ?",
-          "Sur quel point puis-je demander un second avis au staff ou à un autre tuteur ?"
+          "Sur quel point puis-je demander un second avis au staff ou à un·e autre tuteur·rice ?"
         ],
         tests: [],
         alert:
-          "Si la pression du rôle devient envahissante, t’isole ou te fait souffrir durablement, parle-en à une personne de confiance, au staff ou à un professionnel. Accompagner les autres ne t’oblige pas à tout porter seul.",
+          "Si la pression du rôle devient envahissante, t’isole ou te fait souffrir durablement, parle-en à une personne de confiance, au staff ou à un·e professionnel·le. Accompagner les autres ne t’oblige pas à tout porter seul·e.",
         tutorNote:
-          "Tu as été choisi pour accompagner, pas pour être parfait. Prépare-toi, reste curieux, demande de l’aide quand il le faut et fais confiance à ta capacité à apprendre : tu as ta place comme tuteur."
+          "Tu as été choisi·e pour accompagner, pas pour être parfait·e. Prépare-toi, reste curieux·se, demande de l’aide quand il le faut et fais confiance à ta capacité à apprendre : tu as ta place comme tuteur·rice."
       },
     ],
   },
