@@ -896,6 +896,28 @@ window.PC_RUSH_REVIEWS = [
         tutorNote:
           "Cette toolbox aide à préparer la review ; elle ne remplace pas les consignes officielles qui peuvent évoluer.",
       },
+      {
+        title: "Tu as le droit d’être en train d’apprendre",
+        kind: "Pour toi",
+        tags: ["syndrome de l’imposteur", "confiance", "progression"],
+        body: [
+          "Si tu as parfois l’impression d’être une fraude, de ne pas avancer assez vite ou de ne pas être à la hauteur, cette impression n’est pas une preuve.",
+          "Tu es dans un environnement conçu pour te confronter à des choses que tu ne sais pas encore faire. Bloquer, demander de l’aide, recommencer et découvrir qu’une autre personne a compris plus vite font partie du parcours.",
+          "Tu n’as pas besoin de tout savoir pour avoir ta place ici. Ta valeur ne se mesure ni à la vitesse de ton voisin, ni à une review difficile, ni à un programme qui refuse de compiler à deux heures du matin.",
+          "Regarde les faits : ce que tu comprends aujourd’hui et que tu ne comprenais pas hier, les erreurs que tu sais maintenant diagnostiquer, les questions que tu oses poser et les personnes que tu aides à ton tour.",
+          "Être compétent ne signifie pas ne jamais douter. Cela signifie continuer à apprendre, vérifier ce que l’on croit savoir et accepter de ne pas encore avoir toutes les réponses."
+        ],
+        questions: [
+          "Qu’est-ce que je sais faire aujourd’hui que je ne savais pas faire en arrivant ?",
+          "Quel petit progrès concret ai-je fait cette semaine ?",
+          "À qui puis-je demander de l’aide sans rester seul avec ce doute ?"
+        ],
+        tests: [],
+        alert:
+          "Si ce sentiment devient envahissant, t’isole ou te fait souffrir durablement, parle-en à une personne de confiance, au staff ou à un professionnel. Tu n’as pas à porter ça seul.",
+        tutorNote:
+          "Tu n’es pas ici parce que tu sais déjà tout faire. Tu es ici pour apprendre à faire des choses qui te semblaient impossibles. Avance une étape après l’autre : tu as ta place."
+      },
     ],
   },
 ];
