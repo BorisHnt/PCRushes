@@ -172,6 +172,10 @@ main:focus-visible {
   padding-top: 1rem;
 }
 
+.site-links[hidden] {
+  display: none;
+}
+
 .site-links a {
   border: 1px solid var(--accent);
   border-radius: var(--radius);

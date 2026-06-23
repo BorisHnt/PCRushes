@@ -12,7 +12,26 @@ const elements = {
   resultsPanel: document.querySelector("#results-panel"),
   resultsList: document.querySelector("#results-list"),
   resultsCount: document.querySelector("#results-count"),
+  siteLinks: document.querySelector("#site-links"),
 };
+
+const HELP_SEQUENCE = "help";
+let helpBuffer = "";
+
+function unlockSiteLinks() {
+  if (!elements.siteLinks?.hidden) {
+    return;
+  }
+
+  elements.siteLinks.querySelectorAll("[data-href-b64]").forEach((link) => {
+    try {
+      link.href = atob(link.dataset.hrefB64);
+    } catch {
+      link.removeAttribute("href");
+    }
+  });
+  elements.siteLinks.hidden = false;
+}
 
 function escapeHtml(value) {
   return String(value)
@@ -294,6 +313,18 @@ elements.resetSession.addEventListener("click", () => {
   updateProgress();
   elements.searchInput.value = "";
   elements.resultsPanel.hidden = true;
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.ctrlKey || event.metaKey || event.altKey || event.key.length !== 1) {
+    return;
+  }
+
+  helpBuffer = `${helpBuffer}${event.key.toLowerCase()}`.slice(-HELP_SEQUENCE.length);
+  if (helpBuffer === HELP_SEQUENCE) {
+    unlockSiteLinks();
+    helpBuffer = "";
+  }
 });
 
 state.activeId = state.reviews[0]?.id || "";
