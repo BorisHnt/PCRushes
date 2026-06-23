@@ -421,7 +421,10 @@ window.PC_RUSH_REVIEWS = [
     checklist: [
       "Demander le ressenti, la répartition et l’architecture globale.",
       "Vérifier le Makefile, l’exécutable rush-02 et les fonctions autorisées.",
+      "Faire expliquer la structure du Makefile : target, dépendances, règles et .PHONY.",
+      "Revoir les exigences du sujet que norminette ne vérifie pas, notamment les wildcards et les fichiers attendus.",
       "Tester argc avec un nombre seul puis un dictionnaire personnalisé.",
+      "Vérifier le parsing en deux modes : dictionnaire personnalisé si deux arguments, dictionnaire par défaut sinon.",
       "Tester les nombres invalides, zéro et une valeur supérieure à unsigned int.",
       "Inspecter le parsing du dictionnaire et les erreurs de fichier.",
       "Faire expliquer la décomposition d’un grand nombre.",
@@ -437,12 +440,19 @@ window.PC_RUSH_REVIEWS = [
           "Le dépôt doit contenir un Makefile et tous les fichiers nécessaires.",
           "La séquence make fclean puis make doit produire l’exécutable rush-02.",
           "Vérifie les règles principales, clean et fclean, ainsi que l’absence de relink inutile.",
+          "Un Makefile se lit comme une liste de choses à fabriquer : target: dépendances, puis en dessous les règles exécutées pour créer ou mettre à jour la target.",
+          ".PHONY déclare les noms qui sont des commandes logiques et pas des vrais fichiers à produire. Cela évite qu’un fichier nommé clean, all ou fclean casse le comportement de make.",
+          "Si un fichier .c est modifié, make doit recompiler uniquement les .o nécessaires puis relinker l’exécutable.",
           "Les appels système doivent rester dans la liste autorisée.",
         ],
         commands:
-          "make fclean\nmake\nmake\nls -l rush-02\nnorminette\nfind . -maxdepth 2 -type f -printf '%P\\n' | sort",
+          "make fclean\nmake\nmake\nmake clean\nmake\nmake fclean\nmake -n\nls -l rush-02\nnorminette\nfind . -maxdepth 2 -type f -printf '%P\\n' | sort",
         questions: [
           "Quelle est la cible par défaut de votre Makefile ?",
+          "Montrez-moi une ligne target: dépendances, puis les règles associées en dessous.",
+          "À quoi sert .PHONY dans votre Makefile ?",
+          "Que se passe-t-il si un fichier appelé clean existe dans le dossier ?",
+          "Pourquoi make recompile-t-il un .o quand le .c correspondant change ?",
           "Que suppriment clean et fclean ?",
           "Où se trouve le dictionnaire utilisé par défaut ?",
           "Quels fichiers constituent votre architecture ?",
@@ -450,12 +460,42 @@ window.PC_RUSH_REVIEWS = [
         tests: [
           "Compilation depuis un dépôt propre.",
           "Second make sans recompilation inutile.",
+          "clean supprime les .o sans supprimer l’exécutable si le sujet l’attend.",
           "Suppression correcte des objets et de l’exécutable.",
+          "make -n permet de voir les commandes prévues sans les exécuter.",
         ],
         alert:
           "Un programme fonctionnel compilé à la main ne compense pas un Makefile inutilisable.",
         tutorNote:
-          "Le préflight donne souvent une première lecture de la séparation parsing, dictionnaire et conversion.",
+          "Make veut « faire » des fichiers à partir de règles. Le .PHONY sert à garder make dans le bon cadre quand une cible est une action, pas un fichier réel.",
+      },
+      {
+        title: "Norme du sujet, pas seulement norminette",
+        kind: "Contrat",
+        tags: ["Norme", "sujet", "wildcards", "sécurité"],
+        body: [
+          "norminette vérifie beaucoup de règles de style C, mais elle ne vérifie pas tout le contrat du sujet.",
+          "Certaines erreurs peuvent donc passer norminette et rester invalides pour le rush : mauvais nom d’exécutable, fichiers manquants, fonctions interdites, Makefile incomplet ou comportement hors sujet.",
+          "Les wildcards sont un bon exemple à challenger : elles peuvent compiler des fichiers inattendus, cacher des fichiers parasites et rendre le build moins explicite.",
+          "Même quand une wildcard « marche », elle peut être mauvaise en termes de reproductibilité et de sécurité : le Makefile ne dit plus précisément ce qui entre dans le programme.",
+        ],
+        commands:
+          "norminette\nfind . -maxdepth 2 -type f -printf '%P\\n' | sort\ngrep -RIn --include='Makefile' '\\*\\.c\\|wildcard' .\ngrep -RIn \"system\\|popen\\|exec\" .",
+        questions: [
+          "Quelles contraintes du sujet norminette ne peut-elle pas vérifier ?",
+          "Pourquoi une wildcard dans les sources peut-elle compiler un fichier non prévu ?",
+          "Comment savez-vous exactement quels fichiers .c entrent dans rush-02 ?",
+          "Quelles fonctions autorisées utilisez-vous pour lire le dictionnaire ?",
+        ],
+        tests: [
+          "Comparer la liste des fichiers du dépôt avec les fichiers explicitement compilés.",
+          "Repérer les fichiers temporaires ou fichiers de test qui pourraient être compilés par accident.",
+          "Vérifier les fonctions interdites par recherche textuelle puis par explication du groupe.",
+        ],
+        alert:
+          "Une review sérieuse ne s’arrête pas à « norminette est verte ». Le sujet et le comportement priment.",
+        tutorNote:
+          "Formule utile : « norminette est un filtre de style, pas un correcteur complet du sujet ». Ça évite de confondre conformité et qualité.",
       },
       {
         title: "Arguments et validation du nombre",
@@ -464,6 +504,8 @@ window.PC_RUSH_REVIEWS = [
         body: [
           "Le programme accepte un nombre seul ou un chemin de dictionnaire suivi du nombre.",
           "Cela correspond à argc égal à 2 ou 3.",
+          "Le parsing est plus complexe que Rush 01 parce qu’il faut décider d’abord dans quel mode on est : argc == 2 utilise le dictionnaire par défaut et argv[1] comme nombre ; argc == 3 utilise argv[1] comme dictionnaire et argv[2] comme nombre.",
+          "La logique doit rester claire : choisir le dictionnaire, choisir le nombre, valider le nombre, puis seulement lancer la conversion.",
           "Le zéro est explicitement attendu, malgré la formulation parfois ambiguë de nombre positif.",
           "La valeur à convertir doit être une chaîne de chiffres décimaux sans signe, point, lettre ni espace parasite.",
         ],
@@ -471,6 +513,8 @@ window.PC_RUSH_REVIEWS = [
           "./rush-02\n./rush-02 42\n./rush-02 numbers.dict 42\n./rush-02 0\n./rush-02 -1\n./rush-02 +42\n./rush-02 10.4\n./rush-02 \" 42\"\n./rush-02 42 extra extra",
         questions: [
           "Comment choisissez-vous l’argument qui contient le nombre ?",
+          "Où décidez-vous entre dictionnaire par défaut et dictionnaire fourni en argument ?",
+          "Pourquoi le parsing de Rush 02 est-il plus difficile que celui de Rush 01 ?",
           "Pourquoi ne suffit-il pas d’utiliser atoi sur toute la valeur ?",
           "Comment traitez-vous une chaîne vide ou un signe plus ?",
         ],
@@ -664,6 +708,7 @@ window.PC_RUSH_REVIEWS = [
           "Chaque malloc doit être vérifié contre NULL.",
           "Une erreur au milieu du parsing doit libérer tout ce qui a déjà été construit et fermer le fichier.",
           "La conversion répétée ne doit ni modifier irrémédiablement le dictionnaire, ni libérer une valeur encore référencée.",
+          "Sur Rush 02, un crash lié à malloc ou un nettoyage mémoire clairement incorrect est bloquant : si le programme plante ou ne free pas correctement ses allocations, la review doit le traiter comme un échec majeur.",
         ],
         questions: [
           "Qui possède chaque chaîne du dictionnaire ?",
@@ -677,9 +722,35 @@ window.PC_RUSH_REVIEWS = [
           "Dictionnaire volumineux pour révéler les buffers fixes.",
         ],
         alert:
-          "Tester seulement le chemin nominal laisse souvent les fuites dans les branches d’erreur.",
+          "Tester seulement le chemin nominal laisse souvent les fuites dans les branches d’erreur. Si malloc échoue puis que le programme crash ou oublie les free nécessaires, la note peut tomber à 0 selon le barème appliqué.",
         tutorNote:
           "Une fonction cleanup centralisée est souvent plus fiable qu’une série de free dispersés.",
+      },
+      {
+        title: "Conclusion du dernier rush",
+        kind: "Feedback",
+        tags: ["moral", "questions", "fin de semaine"],
+        body: [
+          "Rush 02 arrive souvent en fin de semaine d’exams ou de rushs : garde une conclusion claire, mais humaine.",
+          "Après les tests et les questions techniques, laisse un vrai espace pour leurs questions.",
+          "Si le sujet a été difficile, nomme les progrès observés : Makefile, parsing, fichiers, dictionnaire, mémoire. Ce sont des notions lourdes pour des débutant·es.",
+          "Tu peux aussi proposer un petit échange de fin entre tuteur·rices : quelle notion vaut le coup d’être réexpliquée avant la suite ?",
+        ],
+        questions: [
+          "Qu’est-ce que vous avez compris sur le Makefile grâce à ce rush ?",
+          "Qu’est-ce qui vous semble encore flou : parsing, dictionnaire, grands nombres ou mémoire ?",
+          "Avez-vous une dernière question avant de clôturer ?",
+          "Quel point technique voulez-vous revoir en priorité pour la suite ?",
+        ],
+        tests: [
+          "Feedback factuel : une réussite, un risque, une prochaine action.",
+          "Question ouverte finale, sans relancer une correction complète.",
+          "Remontée au staff si le groupe évoque un problème sensible.",
+        ],
+        alert:
+          "Remonter le moral ne veut pas dire masquer les problèmes techniques. Sépare clairement les faits, la note et l’encouragement.",
+        tutorNote:
+          "Phrase possible : « Ce rush demande déjà de penser comme un petit projet C : build, fichiers, parsing, mémoire. Même si tout n’est pas parfait, identifiez ce que vous savez maintenant refaire seul·es. »",
       },
     ],
   },
