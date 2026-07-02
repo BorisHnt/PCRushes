@@ -1,5 +1,17 @@
+const REVIEW_ORDER = ["toolbox", "rush-00", "rush-01", "rush-02", "trolls"];
+
+function sortReviews(reviews) {
+  return [...reviews].sort((left, right) => {
+    const leftIndex = REVIEW_ORDER.indexOf(left.id);
+    const rightIndex = REVIEW_ORDER.indexOf(right.id);
+    const leftRank = leftIndex === -1 ? REVIEW_ORDER.length : leftIndex;
+    const rightRank = rightIndex === -1 ? REVIEW_ORDER.length : rightIndex;
+    return leftRank - rightRank;
+  });
+}
+
 const state = {
-  reviews: window.PC_RUSH_REVIEWS || [],
+  reviews: sortReviews(window.PC_RUSH_REVIEWS || []),
   activeId: "",
 };
 
