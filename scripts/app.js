@@ -51,6 +51,43 @@ function slugify(value) {
     .replace(/(^-|-$)/g, "");
 }
 
+function getBlockId(reviewId, block) {
+  return `${reviewId}-${slugify(block.title)}`;
+}
+
+function getBlockSlug(reviewId, blockId) {
+  const prefix = `${reviewId}-`;
+  return blockId.startsWith(prefix) ? blockId.slice(prefix.length) : blockId;
+}
+
+function buildRoute(reviewId, blockId = "") {
+  const blockSlug = blockId ? `/${getBlockSlug(reviewId, blockId)}` : "";
+  return `#${reviewId}${blockSlug}`;
+}
+
+function getRouteFromHash() {
+  const fallback = state.reviews[0];
+  const raw = decodeURIComponent(window.location.hash.replace(/^#/, "")).replace(/^\/+/, "");
+  const [reviewId, blockSlug] = raw.split("/");
+  const review = state.reviews.find((item) => item.id === reviewId) || fallback;
+
+  if (!review) {
+    return { reviewId: "", blockId: "" };
+  }
+
+  const blockId = blockSlug ? `${review.id}-${blockSlug}` : "";
+  return { reviewId: review.id, blockId };
+}
+
+function navigateTo(reviewId, blockId = "") {
+  const route = buildRoute(reviewId, blockId);
+  if (window.location.hash === route) {
+    renderReview(reviewId, blockId);
+    return;
+  }
+  window.location.hash = route;
+}
+
 function renderBlockImage(image) {
   if (!image?.src) {
     return "";
@@ -97,7 +134,7 @@ function renderChecklist(review) {
 function renderBlocks(review) {
   return review.blocks
     .map((block) => {
-      const id = `${review.id}-${slugify(block.title)}`;
+      const id = getBlockId(review.id, block);
       const commands = block.commands
         ? `<pre><code>${escapeHtml(block.commands)}</code></pre>`
         : "";
@@ -184,7 +221,7 @@ function renderNav() {
     .join("");
 }
 
-function renderReview(reviewId, blockId = "") {
+function renderReview(reviewId, blockId = "", options = {}) {
   const review = state.reviews.find((item) => item.id === reviewId) || state.reviews[0];
   if (!review) {
     elements.panel.innerHTML = '<p class="empty-state">Aucune catégorie à afficher.</p>';
@@ -216,6 +253,10 @@ function renderReview(reviewId, blockId = "") {
 
   window.readingAssist.refresh(document);
   updateProgress();
+
+  if (options.scroll === false) {
+    return;
+  }
 
   if (blockId) {
     document.getElementById(blockId)?.scrollIntoView({ block: "start" });
@@ -271,7 +312,7 @@ function search(query) {
 
   elements.resultsList.innerHTML = results
     .map(({ review, block }) => {
-      const targetId = `${review.id}-${slugify(block.title)}`;
+      const targetId = getBlockId(review.id, block);
       return `
         <li>
           <button type="button" class="result-button" data-review-id="${escapeHtml(review.id)}" data-block-id="${escapeHtml(targetId)}">
@@ -293,7 +334,7 @@ elements.nav.addEventListener("click", (event) => {
   }
   elements.searchInput.value = "";
   elements.resultsPanel.hidden = true;
-  renderReview(button.dataset.reviewId);
+  navigateTo(button.dataset.reviewId);
 });
 
 elements.searchInput.addEventListener("input", (event) => {
@@ -305,7 +346,8 @@ elements.resultsList.addEventListener("click", (event) => {
   if (!button) {
     return;
   }
-  renderReview(button.dataset.reviewId, button.dataset.blockId);
+  elements.resultsPanel.hidden = true;
+  navigateTo(button.dataset.reviewId, button.dataset.blockId);
 });
 
 elements.panel.addEventListener("change", (event) => {
@@ -341,9 +383,18 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+window.addEventListener("hashchange", () => {
+  const route = getRouteFromHash();
+  renderReview(route.reviewId, route.blockId);
+});
+
 state.activeId = state.reviews[0]?.id || "";
+if (!window.location.hash && state.activeId) {
+  history.replaceState(null, "", buildRoute(state.activeId));
+}
+const initialRoute = getRouteFromHash();
 renderNav();
-renderReview(state.activeId);
+renderReview(initialRoute.reviewId, initialRoute.blockId, { scroll: false });
 
 const readingEnabled = window.readingAssist.isEnabled();
 elements.readingToggle.setAttribute("aria-pressed", String(readingEnabled));

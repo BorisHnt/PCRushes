@@ -1,5 +1,537 @@
 window.PC_RUSH_REVIEWS = [
   {
+    id: "toolbox",
+    number: "TB",
+    shortTitle: "Toolbox",
+    title: "Toolbox des tuteur·rices",
+    focus: "Posture, feedback, escalade",
+    duration: "À consulter au besoin",
+    goal: "Review utile et sûre",
+    summary:
+      "Des repères communs pour conduire la séance, jauger sans piéger, transmettre sans corriger le projet et remonter les situations qui dépassent le cadre de la review.",
+    checklist: [
+      "Installer un cadre calme et expliquer le déroulé.",
+      "Faire parler plusieurs membres, pas uniquement le lead.",
+      "Séparer faits observés, interprétation et conseil.",
+      "Tester avant d’enseigner ou d’optimiser.",
+      "Ne pas humilier, diagnostiquer ni arbitrer seul·e un conflit.",
+      "Ne pas fournir une solution complète pendant l’évaluation.",
+      "Faire remonter immédiatement les situations sensibles au bon interlocuteur.",
+      "Terminer par un feedback actionnable et laisser des questions.",
+    ],
+    blocks: [
+      {
+        title: "Préliminaires 42",
+        kind: "Cadre",
+        reviewForm: true,
+        tags: ["formulaire 42", "dépôt", "scripts", "crash"],
+        body: [
+          "Les formulaires de rush commencent tous par le même cadre : rester courtois, constructif et sérieux, puis identifier les dysfonctionnements avec le groupe évalué.",
+          "L’évaluation doit porter uniquement sur le contenu du dépôt Git du groupe ou de l’étudiant·e, idéalement cloné dans un dossier vide.",
+          "Avant de lancer une commande, vérifie les alias et les scripts utilisés pour l’évaluation. Les personnes évaluatrices et évaluées doivent comprendre ce qui va être exécuté.",
+          "Si l’évaluateur·rice n’a pas encore terminé le projet, le formulaire impose de lire le sujet complet avant la défense.",
+          "Pendant la défense, un segfault, bus error, crash, boucle infinie ou arrêt incontrôlé doit être traité comme un événement bloquant selon le barème.",
+        ],
+        commands:
+          "alias\npwd\ngit remote -v\ngit status --short\nfind . -maxdepth 2 -type f -printf '%P\\n' | sort",
+        questions: [
+          "Est-ce le dépôt Git du groupe évalué ?",
+          "Le dépôt a-t-il été cloné dans un dossier vide ?",
+          "Quels scripts ou alias allons-nous utiliser, et les avez-vous relus ?",
+          "Le rendu contient-il uniquement les fichiers demandés ?",
+        ],
+        tests: [
+          "Bon propriétaire et bon projet.",
+          "Aucun fichier parasite ou mauvais répertoire.",
+          "Scripts et alias connus avant exécution.",
+          "Arrêt ou bascule en discussion technique si un crash bloquant apparaît.",
+        ],
+        alert:
+          "Ne lance pas un script de test opaque dans une review. Fais lire ou expliquer ce qui va être exécuté.",
+        tutorNote:
+          "Cette fiche vient des préliminaires communs aux formulaires Square, Skyscraper et Rosetta.",
+      },
+      {
+        title: "Déroulé universel d’une review",
+        kind: "Trame",
+        tags: ["accueil", "tests", "conclusion"],
+        body: [
+          "Commence par l’humain, puis le dépôt, puis l’explication, puis les tests.",
+          "Cette séquence évite de juger la dynamique du groupe uniquement à partir du code.",
+          "Les questions techniques viennent après une première compréhension de l’architecture.",
+          "La conclusion reprend les réussites, les risques et la prochaine étape.",
+        ],
+        commands:
+          "1. Comment ça va ?\n2. Ressenti sur le rush\n3. Bon dépôt et bons fichiers\n4. Tour du code et répartition\n5. Compilation, Norme, tests\n6. Questions techniques\n7. Questions du groupe\n8. Feedback",
+        questions: [
+          "Est-ce que vous avez des questions pour moi ?",
+          "Quel choix vous semble aujourd’hui le plus fragile ?",
+          "Qu’avez-vous réellement appris ensemble ?",
+        ],
+        alert:
+          "Ne saute pas directement aux tests : tu perdrais des informations importantes sur la compréhension et la coopération.",
+        tutorNote:
+          "Une trame stable libère de l’attention pour observer les personnes et les détails techniques.",
+      },
+      {
+        title: "Jauger sans piéger",
+        kind: "Pédagogie",
+        tags: ["questions", "niveau", "progression"],
+        body: [
+          "Pose d’abord une question ouverte, puis demande un exemple dans leur code.",
+          "Ajuste la profondeur à ce que les membres ont réellement utilisé.",
+          "Une bonne question permet de montrer une compréhension ; une devinette cherche surtout à faire échouer.",
+          "Si une personne bloque, reformule une fois avant de conclure qu’elle ne maîtrise pas.",
+        ],
+        questions: [
+          "Peux-tu me montrer où cette décision est prise ?",
+          "Que contient cette variable à ce moment précis ?",
+          "Que se passerait-il avec cette entrée différente ?",
+          "Peux-tu le redire avec tes mots ?",
+        ],
+        alert:
+          "Ne fais pas descendre le groupe à ton niveau de vocabulaire. Fais monter sa compréhension à partir de son code.",
+        tutorNote:
+          "Cherche une preuve de raisonnement, pas une formulation parfaite.",
+      },
+      {
+        title: "Quand le lead a tout fait",
+        kind: "Équipe",
+        tags: ["leadership", "gap technique", "répartition"],
+        body: [
+          "Le problème n’est pas seulement que le travail a été mal réparti : le groupe a perdu une occasion d’apprentissage.",
+          "Interroge plusieurs membres sur une partie centrale et demande une reconstruction simple.",
+          "Explique qu’un lead doit organiser la montée en compétence, pas seulement produire puis faire relire.",
+          "Un périmètre plus petit mais maîtrisé par tou·tes aurait parfois été préférable.",
+        ],
+        questions: [
+          "Quelle partie pourrais-tu réécrire sans regarder ?",
+          "Comment le groupe a-t-il partagé les explications ?",
+          "Qu’auriez-vous pu simplifier pour que tout le monde participe ?",
+        ],
+        alert:
+          "Critique le fonctionnement observé, pas la valeur personnelle du lead ou des membres moins avancé·es.",
+        tutorNote:
+          "Formulation utile : « Le rendu avance, mais la compréhension n’a pas circulé. Au prochain rush, prévoyez des points de transmission et une partie réécrite par chacun·e. »",
+      },
+      {
+        title: "Évaluer sans corriger",
+        kind: "Limite",
+        tags: ["solution", "concept", "optimisation"],
+        body: [
+          "La review vérifie le rendu tel qu’il existe.",
+          "Tu peux expliquer un concept, montrer une méthode de diagnostic et proposer une direction d’amélioration.",
+          "Tu ne dois pas transformer la séance en pair-programming qui répare le projet évalué.",
+          "Les optimisations viennent après les tests et la compréhension, jamais pour sauver un rendu.",
+        ],
+        questions: [
+          "Quel test permettrait d’isoler ce problème ?",
+          "Quelle responsabilité pourrait être séparée ici ?",
+          "Quel invariant rendrait cette boucle plus facile à vérifier ?",
+        ],
+        alert:
+          "Donner le patch exact empêche d’observer ce que le groupe sait réellement faire.",
+        tutorNote:
+          "Explique le principe sur un mini-exemple différent si le concept mérite une démonstration.",
+      },
+      {
+        title: "Triche ou travail non attribuable",
+        kind: "Escalade",
+        tags: ["triche", "preuve", "pédagogie"],
+        body: [
+          "Si tu observes des indices sérieux de triche ou un travail que personne ne peut expliquer, reste factuel.",
+          "Note les éléments observables : incohérences, réponses, fichiers ou circonstances.",
+          "Ne mène pas un interrogatoire, ne menace pas et ne prononce pas seul·e une sanction.",
+          "Transmets la situation à l’équipe pédagogique selon le canal prévu.",
+        ],
+        questions: [
+          "Pouvez-vous expliquer comment cette partie a été construite ?",
+          "Qui peut modifier cette logique devant moi et expliquer le résultat ?",
+          "Quelles ressources avez-vous utilisées ?",
+        ],
+        alert:
+          "Un niveau faible ou une mauvaise explication ne prouvent pas automatiquement une triche.",
+        tutorNote:
+          "Mail ou signalement pédagogique : faits datés, formulations neutres, aucune conclusion spéculative.",
+      },
+      {
+        title: "Conflit d’équipe ou problème avec un·e tuteur·rice",
+        kind: "Escalade",
+        tags: ["conflit", "staff", "sécurité"],
+        body: [
+          "Écoute brièvement chaque personne sans promettre une résolution immédiate.",
+          "Distingue un désaccord de méthode, un conflit persistant et un comportement inacceptable.",
+          "Si la situation a mal tourné avec l’équipe ou un·e tuteur·rice, préviens le staff.",
+          "En cas de menace, harcèlement, discrimination ou risque immédiat, interromps la séance et cherche de l’aide sans attendre.",
+        ],
+        questions: [
+          "Quels faits précis se sont produits ?",
+          "Est-ce que la situation continue maintenant ?",
+          "Avez-vous déjà prévenu un membre du staff ?",
+        ],
+        alert:
+          "Ne demande pas à une personne de raconter publiquement des détails sensibles devant tout le groupe.",
+        tutorNote:
+          "Le rôle du ou de la tuteur·rice est de sécuriser et transmettre, pas de devenir médiateur·rice désigné·e ou enquêteur·rice.",
+      },
+      {
+        title: "Feedback clair et exhaustif",
+        kind: "Communication",
+        tags: ["faits", "impact", "action"],
+        body: [
+          "Un feedback utile suit une structure simple : observation, impact, prochaine action.",
+          "Commence par ce qui est réellement acquis, sans compliment générique.",
+          "Nomme ensuite les risques techniques ou collectifs avec des exemples.",
+          "Termine par une action réalisable avant le prochain rush.",
+        ],
+        commands:
+          "Observation : « Les cas standards passent et deux membres expliquent les boucles. »\nImpact : « Les dimensions nulles bouclent, donc la fonction n’est pas robuste. »\nAction : « Ajoutez une garde d’entrée et faites-la réécrire par chaque membre. »",
+        questions: [
+          "Le groupe sait-il exactement ce qu’il doit retravailler ?",
+          "Ai-je distingué le code, la compréhension et l’organisation ?",
+          "Mon feedback contient-il une action concrète ?",
+        ],
+        alert:
+          "Évite les jugements vagues comme « mauvais niveau », « pas sérieux » ou « code sale » sans fait précis.",
+        tutorNote:
+          "Mettre les formes ne signifie pas diluer le message. Sois direct sur le comportement observé et respectueux envers les personnes.",
+      },
+      {
+        title: "Mémo commandes Unix et C",
+        kind: "Référence",
+        tags: ["shell", "git", "compilation", "debug"],
+        body: [
+          "Ces commandes forment une boîte à outils minimale pour comprendre où l’on se trouve, ce qui sera évalué et comment reproduire un problème.",
+          "Chaque piscineux·se doit pouvoir expliquer la commande avant de la lancer, surtout lorsqu’elle modifie ou supprime des fichiers.",
+          "Les redirections permettent de conserver une sortie, de comparer deux exécutions et de séparer sortie standard et erreurs.",
+          "git status et git diff servent à vérifier ce qui appartient réellement au rendu.",
+        ],
+        commands:
+          "pwd\nls -la\ncd ex00\ntree -pflart\nfind . -maxdepth 2 -type f -print\nfile ./rush-01\nwc -l *.c\ngrep -RIn \"malloc\\|free\\|return\" .\ncc -Wall -Wextra -Werror *.c -o programme\n./programme > output.txt 2> errors.txt\n./programme 2>&1 | cat -e\necho $?\ndiff -u expected.txt output.txt\ngit status --short\ngit diff --check\ngit diff\nnorminette",
+        questions: [
+          "Quelle différence entre >, >>, 2> et 2>&1 ?",
+          "Pourquoi git diff --check est-il utile avant un rendu ?",
+          "Que montre file sur un exécutable ?",
+          "Pourquoi grep n’est-il qu’une aide et pas une preuve de correction ?",
+        ],
+        tests: [
+          "Faire retrouver le dossier courant et les fichiers évalués.",
+          "Faire compiler sans copier-coller la commande.",
+          "Faire capturer puis comparer une sortie.",
+          "Faire identifier les modifications non commitées.",
+        ],
+        alert:
+          "Évite les commandes destructrices pendant une review. N’utilise pas rm, git reset ou git checkout pour nettoyer le dépôt d’un groupe.",
+        tutorNote:
+          "Le but n’est pas de mémoriser toutes les options, mais de savoir construire une démarche reproductible.",
+      },
+      {
+        title: "Se repérer : pwd, ls et cd",
+        kind: "Commandes",
+        tags: ["pwd", "ls", "cd", "navigation"],
+        body: [
+          "pwd affiche le chemin absolu du dossier courant. C’est la première commande à lancer pour confirmer que la review se déroule dans le bon dépôt.",
+          "ls affiche le contenu d’un dossier. Avec -l, il utilise un format détaillé : permissions, propriétaire, groupe, taille, date et nom.",
+          "Avec -a, ls inclut les entrées cachées dont le nom commence par un point, comme .git ou .gitignore.",
+          "ls -la combine donc l’affichage détaillé et les fichiers cachés.",
+          "cd ex00 change le dossier courant pour entrer dans ex00. cd .. remonte d’un niveau et cd - revient au dossier précédent."
+        ],
+        commands:
+          "pwd\nls\nls -la\ncd ex00\npwd\ncd ..\ncd -",
+        questions: [
+          "Pourquoi vérifier pwd avant de lancer la compilation ?",
+          "Quelle différence entre ls, ls -l et ls -la ?",
+          "Pourquoi .git n’apparaît-il pas avec un simple ls ?"
+        ],
+        tests: [
+          "Faire identifier le dépôt courant sans regarder l’invite du terminal.",
+          "Faire entrer dans ex00 puis revenir au dossier précédent."
+        ],
+        alert:
+          "Un cd exécuté sans vérifier le chemin peut conduire à tester ou modifier le mauvais projet.",
+        tutorNote:
+          "Réflexe de review : pwd, puis ls -la, avant toute autre manipulation."
+      },
+      {
+        title: "Visualiser l’arborescence : tree -pflart",
+        kind: "Commandes",
+        tags: ["tree", "arborescence", "permissions", "liens"],
+        body: [
+          "tree affiche récursivement les dossiers et fichiers sous forme d’arbre. C’est pratique pour comprendre rapidement l’organisation d’un projet.",
+          "-p affiche les protections, c’est-à-dire les permissions de chaque entrée.",
+          "-f affiche le chemin complet depuis le point de départ au lieu du seul nom.",
+          "-l suit les liens symboliques qui pointent vers des dossiers.",
+          "-a inclut les fichiers cachés.",
+          "-r inverse l’ordre de tri choisi.",
+          "-t trie selon la date de dernière modification ; combiné à -r, l’ordre temporel est inversé.",
+          "Les options courtes peuvent être regroupées : tree -pflart équivaut à écrire séparément -p -f -l -a -r -t."
+        ],
+        commands:
+          "tree\ntree -L 2\ntree -p -f -l -a -r -t\ntree -pflart\ntree -a --gitignore -L 3",
+        questions: [
+          "Quelle option affiche les permissions ?",
+          "Pourquoi -a peut-il produire beaucoup plus de résultats ?",
+          "Quel risque introduit -l avec un lien symbolique vers un gros dossier ?",
+          "À quoi sert -L 2 ?"
+        ],
+        tests: [
+          "Comparer tree et tree -a.",
+          "Limiter l’affichage à deux niveaux avec -L 2.",
+          "Repérer les permissions et chemins complets dans tree -pflart."
+        ],
+        alert:
+          "L’option -l suit les liens symboliques. Elle peut sortir du projet ou parcourir une arborescence volumineuse. Omet-la si tu veux seulement inspecter la structure du dépôt.",
+        tutorNote:
+          "Pour une review rapide et prudente, tree -a -L 3 est souvent plus lisible que tree -pflart."
+      },
+      {
+        title: "Lister précisément : find",
+        kind: "Commandes",
+        tags: ["find", "maxdepth", "type"],
+        body: [
+          "find parcourt une arborescence et sélectionne des entrées selon des critères.",
+          "Le point indique que la recherche commence dans le dossier courant.",
+          "-maxdepth 2 limite la descente au dossier courant et à deux niveaux de profondeur.",
+          "-type f conserve uniquement les fichiers ordinaires, pas les dossiers.",
+          "-print affiche chaque chemin sélectionné.",
+          "Contrairement à tree, find est surtout conçu pour filtrer et réutiliser les résultats dans d’autres commandes."
+        ],
+        commands:
+          "find . -maxdepth 2 -type f -print\nfind ex00 -maxdepth 1 -type f -name '*.c' -print\nfind . -type f -name '*.h' -print",
+        questions: [
+          "Que représente le point placé après find ?",
+          "Pourquoi utiliser -type f ?",
+          "Quelle différence entre -maxdepth 1 et -maxdepth 2 ?",
+          "Pourquoi protéger *.c avec des quotes dans -name '*.c' ?"
+        ],
+        tests: [
+          "Lister seulement les fichiers C de ex00.",
+          "Vérifier qu’aucun fichier nécessaire n’est caché trop profondément."
+        ],
+        alert:
+          "find peut parcourir énormément de fichiers sans limite de profondeur. Commence avec un périmètre précis.",
+        tutorNote:
+          "find donne une liste exploitable ; tree donne surtout une vue humaine de la structure."
+      },
+      {
+        title: "Inspecter les fichiers : file, wc et grep",
+        kind: "Commandes",
+        tags: ["file", "wc", "grep", "recherche"],
+        body: [
+          "file inspecte le contenu d’un fichier pour identifier son type réel. Sur ./rush-01, il permet de vérifier qu’il s’agit d’un exécutable et d’observer son architecture.",
+          "wc compte des éléments. L’option -l compte les lignes ; wc -l *.c affiche donc le nombre de lignes de chaque fichier C correspondant.",
+          "grep recherche du texte. -R parcourt récursivement les sous-dossiers, -I ignore les fichiers binaires et -n affiche le numéro de ligne.",
+          "Dans l’expression malloc\\|free\\|return, la barre verticale échappée représente une alternative avec le grep utilisé ici : rechercher malloc, free ou return.",
+          "Le point final demande à grep de rechercher à partir du dossier courant."
+        ],
+        commands:
+          "file ./rush-01\nwc -l *.c\ngrep -RIn \"malloc\\|free\\|return\" .\ngrep -RIn --include='*.c' --include='*.h' \"Error\" .",
+        questions: [
+          "Pourquoi file est-il plus fiable que l’extension du nom ?",
+          "Que signifie le joker *.c ?",
+          "Que font précisément -R, -I et -n ?",
+          "Pourquoi un résultat grep ne prouve-t-il pas que la mémoire est bien gérée ?"
+        ],
+        tests: [
+          "Repérer toutes les allocations et libérations.",
+          "Rechercher les sorties Error et Dict Error.",
+          "Identifier les fichiers anormalement volumineux avec wc -l."
+        ],
+        alert:
+          "grep trouve des chaînes, pas des comportements. Il aide à orienter la lecture mais ne remplace jamais l’exécution et le raisonnement.",
+        tutorNote:
+          "Sur les grep modernes, grep -REn 'malloc|free|return' . est une variante plus lisible avec les expressions régulières étendues."
+      },
+      {
+        title: "Compiler : cc et ses options",
+        kind: "Commandes",
+        tags: ["cc", "warnings", "exécutable"],
+        body: [
+          "cc lance le compilateur C disponible sur le système.",
+          "*.c est développé par le shell en liste de tous les fichiers dont le nom se termine par .c dans le dossier courant.",
+          "-Wall active un ensemble important d’avertissements courants.",
+          "-Wextra active des avertissements supplémentaires.",
+          "-Werror transforme les avertissements en erreurs de compilation.",
+          "-o programme fixe le nom du fichier exécutable produit. Sans -o, le compilateur produit généralement a.out."
+        ],
+        commands:
+          "cc -Wall -Wextra -Werror *.c -o programme\n./programme\nfile ./programme",
+        questions: [
+          "Quelle différence entre une erreur et un warning ?",
+          "Pourquoi -Werror est-il utile dans la Piscine ?",
+          "Que devient *.c avant l’exécution de cc ?",
+          "Que se passe-t-il si deux fichiers définissent le même symbole ?"
+        ],
+        tests: [
+          "Compiler depuis le dossier attendu.",
+          "Vérifier le code retour de cc.",
+          "Confirmer le type du résultat avec file."
+        ],
+        alert:
+          "La commande ne compile que les fichiers C du dossier courant. Elle ignore les sources rangées dans des sous-dossiers.",
+        tutorNote:
+          "Faire reformuler chaque option est plus utile que faire réciter la commande complète."
+      },
+      {
+        title: "Redirections, pipe, cat -e et code retour",
+        kind: "Commandes",
+        tags: ["stdout", "stderr", "pipe", "exit status"],
+        body: [
+          "Un programme possède notamment une sortie standard, stdout, et une sortie d’erreur, stderr.",
+          "> output.txt envoie stdout dans output.txt en remplaçant son ancien contenu.",
+          "2> errors.txt envoie stderr dans errors.txt ; le chiffre 2 désigne le descripteur de stderr.",
+          "2>&1 demande à stderr de rejoindre la destination actuelle de stdout.",
+          "Le pipe | envoie la sortie standard de la commande de gauche vers l’entrée standard de la commande de droite.",
+          "cat -e rend visibles les fins de ligne avec un symbole $, ce qui permet de repérer les espaces et retours manquants.",
+          "echo $? affiche le code de retour de la dernière commande : 0 indique généralement un succès, une autre valeur signale un état différent."
+        ],
+        commands:
+          "./programme > output.txt 2> errors.txt\n./programme 2>&1 | cat -e\necho $?\n./programme >> output.txt",
+        questions: [
+          "Quelle sortie est capturée par > ?",
+          "Pourquoi le nombre 2 représente-t-il stderr ?",
+          "Quelle différence entre > et >> ?",
+          "À quelle commande correspond $? ?"
+        ],
+        tests: [
+          "Capturer stdout et stderr dans deux fichiers différents.",
+          "Afficher ensemble les deux flux avec cat -e.",
+          "Comparer le code retour après un succès et une erreur."
+        ],
+        alert:
+          "echo $? doit être lancé immédiatement après la commande étudiée, sinon il affichera le statut d’une autre commande.",
+        tutorNote:
+          "cat -e n’ajoute pas les symboles au fichier : il les montre uniquement dans son affichage."
+      },
+      {
+        title: "Comparer une sortie : diff -u",
+        kind: "Commandes",
+        tags: ["diff", "sortie attendue", "tests"],
+        body: [
+          "diff compare deux fichiers ligne par ligne.",
+          "-u demande le format unifié, plus lisible : quelques lignes de contexte entourent les différences.",
+          "Dans diff -u expected.txt output.txt, le premier fichier représente la référence et le second le résultat obtenu.",
+          "Les lignes précédées de - appartiennent à la référence mais manquent ou diffèrent dans le résultat.",
+          "Les lignes précédées de + viennent du résultat obtenu.",
+          "Sans différence, diff n’affiche rien et retourne généralement 0."
+        ],
+        commands:
+          "diff -u expected.txt output.txt\necho $?\ndiff -u <(printf 'Error\\n') <(./rush-01 mauvais_argument)",
+        questions: [
+          "Pourquoi l’ordre des deux fichiers compte-t-il ?",
+          "Que signifient les lignes + et - ?",
+          "Que signifie une absence totale de sortie de diff ?"
+        ],
+        tests: [
+          "Comparer une sortie correcte.",
+          "Ajouter un espace terminal pour observer la différence.",
+          "Comparer un saut de ligne manquant."
+        ],
+        alert:
+          "La syntaxe <(...) est une fonctionnalité de certains shells comme Bash ; elle n’est pas du C et n’est pas disponible partout.",
+        tutorNote:
+          "Pour une méthode portable, écris d’abord les deux sorties dans des fichiers, puis utilise diff -u."
+      },
+      {
+        title: "Contrôler le rendu Git",
+        kind: "Commandes",
+        tags: ["git status", "git diff", "whitespace"],
+        body: [
+          "git status --short affiche un résumé compact de l’état du dépôt.",
+          "Les deux colonnes indiquent l’état dans l’index et dans le dossier de travail. ?? indique un fichier non suivi.",
+          "git diff affiche les modifications non indexées par rapport à l’index.",
+          "git diff --check ne montre pas tout le diff : il recherche surtout des problèmes d’espaces, comme les espaces en fin de ligne ou certaines erreurs de whitespace.",
+          "Ces commandes ne modifient pas le dépôt ; elles servent à comprendre ce qui sera réellement rendu."
+        ],
+        commands:
+          "git status --short\ngit diff --check\ngit diff\ngit diff --cached",
+        questions: [
+          "Que signifie ?? dans git status --short ?",
+          "Pourquoi un fichier non suivi peut-il manquer au rendu ?",
+          "Quelle différence entre git diff et git diff --cached ?",
+          "Pourquoi git diff --check peut réussir alors que le code est faux ?"
+        ],
+        tests: [
+          "Identifier les fichiers modifiés et non suivis.",
+          "Vérifier les modifications indexées et non indexées.",
+          "Repérer les erreurs d’espaces avant la soumission."
+        ],
+        alert:
+          "Pendant une review, utilise Git pour inspecter. Ne nettoie pas le dépôt du groupe avec des commandes de restauration destructrices.",
+        tutorNote:
+          "Un fichier présent sur le disque mais non suivi par Git peut ne pas se trouver dans la soumission attendue."
+      },
+      {
+        title: "Vérifier la Norme : norminette",
+        kind: "Commandes",
+        tags: ["Norme", "norminette", "style"],
+        body: [
+          "norminette analyse les fichiers C et headers selon les règles de style demandées par 42.",
+          "Sans argument, elle inspecte généralement le dossier courant selon sa configuration.",
+          "On peut lui donner un dossier ou des fichiers précis pour limiter le contrôle.",
+          "Une sortie sans erreur de Norme ne garantit ni que le programme compile, ni qu’il fonctionne.",
+          "Inversement, un programme fonctionnel peut rester non conforme à la Norme."
+        ],
+        commands:
+          "norminette\nnorminette ex00\nnorminette *.c *.h",
+        questions: [
+          "Que vérifie norminette ?",
+          "Que ne vérifie-t-elle pas ?",
+          "Pourquoi faut-il aussi compiler et exécuter des tests ?"
+        ],
+        tests: [
+          "Lancer la Norme sur le périmètre réellement rendu.",
+          "Relier chaque erreur affichée au fichier et à la ligne concernés."
+        ],
+        alert:
+          "La version de Norminette et les règles applicables peuvent évoluer. Utilise l’outil fourni dans l’environnement de la Piscine.",
+        tutorNote:
+          "Norme, compilation et comportement sont trois contrôles complémentaires."
+      },
+      {
+        title: "Corrections techniques à garder en tête",
+        kind: "Référence",
+        tags: ["malloc", "argc", "stack", "heap"],
+        body: [
+          "Rush 01 reçoit un argument contenant 16 valeurs : argc vaut 2.",
+          "malloc renvoie NULL en cas d’échec, pas -1.",
+          "La stack est automatique et limitée ; la heap est dynamique, contrôlée et également limitée.",
+          "Une fuite mémoire, un accès invalide et un crash sont trois défauts différents.",
+          "Les règles précises de notation viennent du barème actif ; ne les invente pas à partir d’une habitude.",
+        ],
+        questions: [],
+        tests: [],
+        alert:
+          "Quand une note de réunion et le sujet semblent se contredire, reviens au sujet et au barème disponibles le jour de la review.",
+        tutorNote:
+          "Cette toolbox aide à préparer la review ; elle ne remplace pas les consignes de référence qui peuvent évoluer.",
+      },
+      {
+        title: "Tu n’as pas besoin d’être infaillible pour être un·e bon·ne tuteur·rice",
+        kind: "Pour les tuteur·rices",
+        tags: ["syndrome de l’imposteur", "confiance", "tutorat"],
+        body: [
+          "Si tu as parfois peur de ne pas être assez technique, de poser une mauvaise question ou de rater un problème important, ce doute ne signifie pas que tu es une fraude.",
+          "Être tuteur·rice ne veut pas dire connaître toutes les solutions, réciter tout le C de mémoire ou être la personne la plus avancée de la salle. Ton rôle est d’installer un cadre sûr, d’observer rigoureusement, de poser des questions utiles et de savoir quand demander un second avis.",
+          "Une bonne review ne dépend pas d’une performance parfaite. Elle dépend de ton honnêteté : vérifier plutôt qu’inventer, dire « je ne suis pas certain·e » quand il le faut, revenir au sujet et solliciter le staff lorsque la situation dépasse ton rôle.",
+          "Tu peux apprendre pendant que tu accompagnes. Chaque groupe, chaque architecture et chaque question difficile enrichissent aussi ta propre compréhension.",
+          "Regarde les faits : les personnes que tu as aidées à formuler leur raisonnement, les erreurs que tu as rendues compréhensibles et les feedbacks qui leur ont donné une prochaine étape claire.",
+          "Un·e bon·ne tuteur·rice n’est pas une personne qui ne doute jamais. C’est une personne qui transforme son doute en vérification, reste juste avec le groupe et continue elle aussi à progresser."
+        ],
+        questions: [
+          "Quels faits ai-je réellement observés pendant cette review ?",
+          "Qu’est-ce que j’ai aidé le groupe à mieux comprendre ?",
+          "Sur quel point puis-je demander un second avis au staff ou à un·e autre tuteur·rice ?"
+        ],
+        tests: [],
+        alert:
+          "Si la pression du rôle devient envahissante, t’isole ou te fait souffrir durablement, parle-en à une personne de confiance, au staff ou à un·e professionnel·le. Accompagner les autres ne t’oblige pas à tout porter seul·e.",
+        tutorNote:
+          "Tu as été choisi·e pour accompagner, pas pour être parfait·e. Prépare-toi, reste curieux·se, demande de l’aide quand il le faut et fais confiance à ta capacité à apprendre : tu as ta place comme tuteur·rice."
+      },
+    ],
+  },
+  {
     id: "rush-00",
     number: "00",
     shortTitle: "Rush 00",
@@ -977,538 +1509,6 @@ window.PC_RUSH_REVIEWS = [
           "Une blague qui touche aux fichiers, aux comptes ou à l’identité numérique n’est plus une blague.",
         tutorNote:
           "Si le doute existe, ne fais rien et contente-toi du rappel sécurité.",
-      },
-    ],
-  },
-  {
-    id: "toolbox",
-    number: "TB",
-    shortTitle: "Toolbox",
-    title: "Toolbox des tuteur·rices",
-    focus: "Posture, feedback, escalade",
-    duration: "À consulter au besoin",
-    goal: "Review utile et sûre",
-    summary:
-      "Des repères communs pour conduire la séance, jauger sans piéger, transmettre sans corriger le projet et remonter les situations qui dépassent le cadre de la review.",
-    checklist: [
-      "Installer un cadre calme et expliquer le déroulé.",
-      "Faire parler plusieurs membres, pas uniquement le lead.",
-      "Séparer faits observés, interprétation et conseil.",
-      "Tester avant d’enseigner ou d’optimiser.",
-      "Ne pas humilier, diagnostiquer ni arbitrer seul·e un conflit.",
-      "Ne pas fournir une solution complète pendant l’évaluation.",
-      "Faire remonter immédiatement les situations sensibles au bon interlocuteur.",
-      "Terminer par un feedback actionnable et laisser des questions.",
-    ],
-    blocks: [
-      {
-        title: "Préliminaires 42",
-        kind: "Cadre",
-        reviewForm: true,
-        tags: ["formulaire 42", "dépôt", "scripts", "crash"],
-        body: [
-          "Les formulaires de rush commencent tous par le même cadre : rester courtois, constructif et sérieux, puis identifier les dysfonctionnements avec le groupe évalué.",
-          "L’évaluation doit porter uniquement sur le contenu du dépôt Git du groupe ou de l’étudiant·e, idéalement cloné dans un dossier vide.",
-          "Avant de lancer une commande, vérifie les alias et les scripts utilisés pour l’évaluation. Les personnes évaluatrices et évaluées doivent comprendre ce qui va être exécuté.",
-          "Si l’évaluateur·rice n’a pas encore terminé le projet, le formulaire impose de lire le sujet complet avant la défense.",
-          "Pendant la défense, un segfault, bus error, crash, boucle infinie ou arrêt incontrôlé doit être traité comme un événement bloquant selon le barème.",
-        ],
-        commands:
-          "alias\npwd\ngit remote -v\ngit status --short\nfind . -maxdepth 2 -type f -printf '%P\\n' | sort",
-        questions: [
-          "Est-ce le dépôt Git du groupe évalué ?",
-          "Le dépôt a-t-il été cloné dans un dossier vide ?",
-          "Quels scripts ou alias allons-nous utiliser, et les avez-vous relus ?",
-          "Le rendu contient-il uniquement les fichiers demandés ?",
-        ],
-        tests: [
-          "Bon propriétaire et bon projet.",
-          "Aucun fichier parasite ou mauvais répertoire.",
-          "Scripts et alias connus avant exécution.",
-          "Arrêt ou bascule en discussion technique si un crash bloquant apparaît.",
-        ],
-        alert:
-          "Ne lance pas un script de test opaque dans une review. Fais lire ou expliquer ce qui va être exécuté.",
-        tutorNote:
-          "Cette fiche vient des préliminaires communs aux formulaires Square, Skyscraper et Rosetta.",
-      },
-      {
-        title: "Déroulé universel d’une review",
-        kind: "Trame",
-        tags: ["accueil", "tests", "conclusion"],
-        body: [
-          "Commence par l’humain, puis le dépôt, puis l’explication, puis les tests.",
-          "Cette séquence évite de juger la dynamique du groupe uniquement à partir du code.",
-          "Les questions techniques viennent après une première compréhension de l’architecture.",
-          "La conclusion reprend les réussites, les risques et la prochaine étape.",
-        ],
-        commands:
-          "1. Comment ça va ?\n2. Ressenti sur le rush\n3. Bon dépôt et bons fichiers\n4. Tour du code et répartition\n5. Compilation, Norme, tests\n6. Questions techniques\n7. Questions du groupe\n8. Feedback",
-        questions: [
-          "Est-ce que vous avez des questions pour moi ?",
-          "Quel choix vous semble aujourd’hui le plus fragile ?",
-          "Qu’avez-vous réellement appris ensemble ?",
-        ],
-        alert:
-          "Ne saute pas directement aux tests : tu perdrais des informations importantes sur la compréhension et la coopération.",
-        tutorNote:
-          "Une trame stable libère de l’attention pour observer les personnes et les détails techniques.",
-      },
-      {
-        title: "Jauger sans piéger",
-        kind: "Pédagogie",
-        tags: ["questions", "niveau", "progression"],
-        body: [
-          "Pose d’abord une question ouverte, puis demande un exemple dans leur code.",
-          "Ajuste la profondeur à ce que les membres ont réellement utilisé.",
-          "Une bonne question permet de montrer une compréhension ; une devinette cherche surtout à faire échouer.",
-          "Si une personne bloque, reformule une fois avant de conclure qu’elle ne maîtrise pas.",
-        ],
-        questions: [
-          "Peux-tu me montrer où cette décision est prise ?",
-          "Que contient cette variable à ce moment précis ?",
-          "Que se passerait-il avec cette entrée différente ?",
-          "Peux-tu le redire avec tes mots ?",
-        ],
-        alert:
-          "Ne fais pas descendre le groupe à ton niveau de vocabulaire. Fais monter sa compréhension à partir de son code.",
-        tutorNote:
-          "Cherche une preuve de raisonnement, pas une formulation parfaite.",
-      },
-      {
-        title: "Quand le lead a tout fait",
-        kind: "Équipe",
-        tags: ["leadership", "gap technique", "répartition"],
-        body: [
-          "Le problème n’est pas seulement que le travail a été mal réparti : le groupe a perdu une occasion d’apprentissage.",
-          "Interroge plusieurs membres sur une partie centrale et demande une reconstruction simple.",
-          "Explique qu’un lead doit organiser la montée en compétence, pas seulement produire puis faire relire.",
-          "Un périmètre plus petit mais maîtrisé par tou·tes aurait parfois été préférable.",
-        ],
-        questions: [
-          "Quelle partie pourrais-tu réécrire sans regarder ?",
-          "Comment le groupe a-t-il partagé les explications ?",
-          "Qu’auriez-vous pu simplifier pour que tout le monde participe ?",
-        ],
-        alert:
-          "Critique le fonctionnement observé, pas la valeur personnelle du lead ou des membres moins avancé·es.",
-        tutorNote:
-          "Formulation utile : « Le rendu avance, mais la compréhension n’a pas circulé. Au prochain rush, prévoyez des points de transmission et une partie réécrite par chacun·e. »",
-      },
-      {
-        title: "Évaluer sans corriger",
-        kind: "Limite",
-        tags: ["solution", "concept", "optimisation"],
-        body: [
-          "La review vérifie le rendu tel qu’il existe.",
-          "Tu peux expliquer un concept, montrer une méthode de diagnostic et proposer une direction d’amélioration.",
-          "Tu ne dois pas transformer la séance en pair-programming qui répare le projet évalué.",
-          "Les optimisations viennent après les tests et la compréhension, jamais pour sauver un rendu.",
-        ],
-        questions: [
-          "Quel test permettrait d’isoler ce problème ?",
-          "Quelle responsabilité pourrait être séparée ici ?",
-          "Quel invariant rendrait cette boucle plus facile à vérifier ?",
-        ],
-        alert:
-          "Donner le patch exact empêche d’observer ce que le groupe sait réellement faire.",
-        tutorNote:
-          "Explique le principe sur un mini-exemple différent si le concept mérite une démonstration.",
-      },
-      {
-        title: "Triche ou travail non attribuable",
-        kind: "Escalade",
-        tags: ["triche", "preuve", "pédagogie"],
-        body: [
-          "Si tu observes des indices sérieux de triche ou un travail que personne ne peut expliquer, reste factuel.",
-          "Note les éléments observables : incohérences, réponses, fichiers ou circonstances.",
-          "Ne mène pas un interrogatoire, ne menace pas et ne prononce pas seul·e une sanction.",
-          "Transmets la situation à l’équipe pédagogique selon le canal prévu.",
-        ],
-        questions: [
-          "Pouvez-vous expliquer comment cette partie a été construite ?",
-          "Qui peut modifier cette logique devant moi et expliquer le résultat ?",
-          "Quelles ressources avez-vous utilisées ?",
-        ],
-        alert:
-          "Un niveau faible ou une mauvaise explication ne prouvent pas automatiquement une triche.",
-        tutorNote:
-          "Mail ou signalement pédagogique : faits datés, formulations neutres, aucune conclusion spéculative.",
-      },
-      {
-        title: "Conflit d’équipe ou problème avec un·e tuteur·rice",
-        kind: "Escalade",
-        tags: ["conflit", "staff", "sécurité"],
-        body: [
-          "Écoute brièvement chaque personne sans promettre une résolution immédiate.",
-          "Distingue un désaccord de méthode, un conflit persistant et un comportement inacceptable.",
-          "Si la situation a mal tourné avec l’équipe ou un·e tuteur·rice, préviens le staff.",
-          "En cas de menace, harcèlement, discrimination ou risque immédiat, interromps la séance et cherche de l’aide sans attendre.",
-        ],
-        questions: [
-          "Quels faits précis se sont produits ?",
-          "Est-ce que la situation continue maintenant ?",
-          "Avez-vous déjà prévenu un membre du staff ?",
-        ],
-        alert:
-          "Ne demande pas à une personne de raconter publiquement des détails sensibles devant tout le groupe.",
-        tutorNote:
-          "Le rôle du ou de la tuteur·rice est de sécuriser et transmettre, pas de devenir médiateur·rice désigné·e ou enquêteur·rice.",
-      },
-      {
-        title: "Feedback clair et exhaustif",
-        kind: "Communication",
-        tags: ["faits", "impact", "action"],
-        body: [
-          "Un feedback utile suit une structure simple : observation, impact, prochaine action.",
-          "Commence par ce qui est réellement acquis, sans compliment générique.",
-          "Nomme ensuite les risques techniques ou collectifs avec des exemples.",
-          "Termine par une action réalisable avant le prochain rush.",
-        ],
-        commands:
-          "Observation : « Les cas standards passent et deux membres expliquent les boucles. »\nImpact : « Les dimensions nulles bouclent, donc la fonction n’est pas robuste. »\nAction : « Ajoutez une garde d’entrée et faites-la réécrire par chaque membre. »",
-        questions: [
-          "Le groupe sait-il exactement ce qu’il doit retravailler ?",
-          "Ai-je distingué le code, la compréhension et l’organisation ?",
-          "Mon feedback contient-il une action concrète ?",
-        ],
-        alert:
-          "Évite les jugements vagues comme « mauvais niveau », « pas sérieux » ou « code sale » sans fait précis.",
-        tutorNote:
-          "Mettre les formes ne signifie pas diluer le message. Sois direct sur le comportement observé et respectueux envers les personnes.",
-      },
-      {
-        title: "Mémo commandes Unix et C",
-        kind: "Référence",
-        tags: ["shell", "git", "compilation", "debug"],
-        body: [
-          "Ces commandes forment une boîte à outils minimale pour comprendre où l’on se trouve, ce qui sera évalué et comment reproduire un problème.",
-          "Chaque piscineux·se doit pouvoir expliquer la commande avant de la lancer, surtout lorsqu’elle modifie ou supprime des fichiers.",
-          "Les redirections permettent de conserver une sortie, de comparer deux exécutions et de séparer sortie standard et erreurs.",
-          "git status et git diff servent à vérifier ce qui appartient réellement au rendu.",
-        ],
-        commands:
-          "pwd\nls -la\ncd ex00\ntree -pflart\nfind . -maxdepth 2 -type f -print\nfile ./rush-01\nwc -l *.c\ngrep -RIn \"malloc\\|free\\|return\" .\ncc -Wall -Wextra -Werror *.c -o programme\n./programme > output.txt 2> errors.txt\n./programme 2>&1 | cat -e\necho $?\ndiff -u expected.txt output.txt\ngit status --short\ngit diff --check\ngit diff\nnorminette",
-        questions: [
-          "Quelle différence entre >, >>, 2> et 2>&1 ?",
-          "Pourquoi git diff --check est-il utile avant un rendu ?",
-          "Que montre file sur un exécutable ?",
-          "Pourquoi grep n’est-il qu’une aide et pas une preuve de correction ?",
-        ],
-        tests: [
-          "Faire retrouver le dossier courant et les fichiers évalués.",
-          "Faire compiler sans copier-coller la commande.",
-          "Faire capturer puis comparer une sortie.",
-          "Faire identifier les modifications non commitées.",
-        ],
-        alert:
-          "Évite les commandes destructrices pendant une review. N’utilise pas rm, git reset ou git checkout pour nettoyer le dépôt d’un groupe.",
-        tutorNote:
-          "Le but n’est pas de mémoriser toutes les options, mais de savoir construire une démarche reproductible.",
-      },
-      {
-        title: "Se repérer : pwd, ls et cd",
-        kind: "Commandes",
-        tags: ["pwd", "ls", "cd", "navigation"],
-        body: [
-          "pwd affiche le chemin absolu du dossier courant. C’est la première commande à lancer pour confirmer que la review se déroule dans le bon dépôt.",
-          "ls affiche le contenu d’un dossier. Avec -l, il utilise un format détaillé : permissions, propriétaire, groupe, taille, date et nom.",
-          "Avec -a, ls inclut les entrées cachées dont le nom commence par un point, comme .git ou .gitignore.",
-          "ls -la combine donc l’affichage détaillé et les fichiers cachés.",
-          "cd ex00 change le dossier courant pour entrer dans ex00. cd .. remonte d’un niveau et cd - revient au dossier précédent."
-        ],
-        commands:
-          "pwd\nls\nls -la\ncd ex00\npwd\ncd ..\ncd -",
-        questions: [
-          "Pourquoi vérifier pwd avant de lancer la compilation ?",
-          "Quelle différence entre ls, ls -l et ls -la ?",
-          "Pourquoi .git n’apparaît-il pas avec un simple ls ?"
-        ],
-        tests: [
-          "Faire identifier le dépôt courant sans regarder l’invite du terminal.",
-          "Faire entrer dans ex00 puis revenir au dossier précédent."
-        ],
-        alert:
-          "Un cd exécuté sans vérifier le chemin peut conduire à tester ou modifier le mauvais projet.",
-        tutorNote:
-          "Réflexe de review : pwd, puis ls -la, avant toute autre manipulation."
-      },
-      {
-        title: "Visualiser l’arborescence : tree -pflart",
-        kind: "Commandes",
-        tags: ["tree", "arborescence", "permissions", "liens"],
-        body: [
-          "tree affiche récursivement les dossiers et fichiers sous forme d’arbre. C’est pratique pour comprendre rapidement l’organisation d’un projet.",
-          "-p affiche les protections, c’est-à-dire les permissions de chaque entrée.",
-          "-f affiche le chemin complet depuis le point de départ au lieu du seul nom.",
-          "-l suit les liens symboliques qui pointent vers des dossiers.",
-          "-a inclut les fichiers cachés.",
-          "-r inverse l’ordre de tri choisi.",
-          "-t trie selon la date de dernière modification ; combiné à -r, l’ordre temporel est inversé.",
-          "Les options courtes peuvent être regroupées : tree -pflart équivaut à écrire séparément -p -f -l -a -r -t."
-        ],
-        commands:
-          "tree\ntree -L 2\ntree -p -f -l -a -r -t\ntree -pflart\ntree -a --gitignore -L 3",
-        questions: [
-          "Quelle option affiche les permissions ?",
-          "Pourquoi -a peut-il produire beaucoup plus de résultats ?",
-          "Quel risque introduit -l avec un lien symbolique vers un gros dossier ?",
-          "À quoi sert -L 2 ?"
-        ],
-        tests: [
-          "Comparer tree et tree -a.",
-          "Limiter l’affichage à deux niveaux avec -L 2.",
-          "Repérer les permissions et chemins complets dans tree -pflart."
-        ],
-        alert:
-          "L’option -l suit les liens symboliques. Elle peut sortir du projet ou parcourir une arborescence volumineuse. Omet-la si tu veux seulement inspecter la structure du dépôt.",
-        tutorNote:
-          "Pour une review rapide et prudente, tree -a -L 3 est souvent plus lisible que tree -pflart."
-      },
-      {
-        title: "Lister précisément : find",
-        kind: "Commandes",
-        tags: ["find", "maxdepth", "type"],
-        body: [
-          "find parcourt une arborescence et sélectionne des entrées selon des critères.",
-          "Le point indique que la recherche commence dans le dossier courant.",
-          "-maxdepth 2 limite la descente au dossier courant et à deux niveaux de profondeur.",
-          "-type f conserve uniquement les fichiers ordinaires, pas les dossiers.",
-          "-print affiche chaque chemin sélectionné.",
-          "Contrairement à tree, find est surtout conçu pour filtrer et réutiliser les résultats dans d’autres commandes."
-        ],
-        commands:
-          "find . -maxdepth 2 -type f -print\nfind ex00 -maxdepth 1 -type f -name '*.c' -print\nfind . -type f -name '*.h' -print",
-        questions: [
-          "Que représente le point placé après find ?",
-          "Pourquoi utiliser -type f ?",
-          "Quelle différence entre -maxdepth 1 et -maxdepth 2 ?",
-          "Pourquoi protéger *.c avec des quotes dans -name '*.c' ?"
-        ],
-        tests: [
-          "Lister seulement les fichiers C de ex00.",
-          "Vérifier qu’aucun fichier nécessaire n’est caché trop profondément."
-        ],
-        alert:
-          "find peut parcourir énormément de fichiers sans limite de profondeur. Commence avec un périmètre précis.",
-        tutorNote:
-          "find donne une liste exploitable ; tree donne surtout une vue humaine de la structure."
-      },
-      {
-        title: "Inspecter les fichiers : file, wc et grep",
-        kind: "Commandes",
-        tags: ["file", "wc", "grep", "recherche"],
-        body: [
-          "file inspecte le contenu d’un fichier pour identifier son type réel. Sur ./rush-01, il permet de vérifier qu’il s’agit d’un exécutable et d’observer son architecture.",
-          "wc compte des éléments. L’option -l compte les lignes ; wc -l *.c affiche donc le nombre de lignes de chaque fichier C correspondant.",
-          "grep recherche du texte. -R parcourt récursivement les sous-dossiers, -I ignore les fichiers binaires et -n affiche le numéro de ligne.",
-          "Dans l’expression malloc\\|free\\|return, la barre verticale échappée représente une alternative avec le grep utilisé ici : rechercher malloc, free ou return.",
-          "Le point final demande à grep de rechercher à partir du dossier courant."
-        ],
-        commands:
-          "file ./rush-01\nwc -l *.c\ngrep -RIn \"malloc\\|free\\|return\" .\ngrep -RIn --include='*.c' --include='*.h' \"Error\" .",
-        questions: [
-          "Pourquoi file est-il plus fiable que l’extension du nom ?",
-          "Que signifie le joker *.c ?",
-          "Que font précisément -R, -I et -n ?",
-          "Pourquoi un résultat grep ne prouve-t-il pas que la mémoire est bien gérée ?"
-        ],
-        tests: [
-          "Repérer toutes les allocations et libérations.",
-          "Rechercher les sorties Error et Dict Error.",
-          "Identifier les fichiers anormalement volumineux avec wc -l."
-        ],
-        alert:
-          "grep trouve des chaînes, pas des comportements. Il aide à orienter la lecture mais ne remplace jamais l’exécution et le raisonnement.",
-        tutorNote:
-          "Sur les grep modernes, grep -REn 'malloc|free|return' . est une variante plus lisible avec les expressions régulières étendues."
-      },
-      {
-        title: "Compiler : cc et ses options",
-        kind: "Commandes",
-        tags: ["cc", "warnings", "exécutable"],
-        body: [
-          "cc lance le compilateur C disponible sur le système.",
-          "*.c est développé par le shell en liste de tous les fichiers dont le nom se termine par .c dans le dossier courant.",
-          "-Wall active un ensemble important d’avertissements courants.",
-          "-Wextra active des avertissements supplémentaires.",
-          "-Werror transforme les avertissements en erreurs de compilation.",
-          "-o programme fixe le nom du fichier exécutable produit. Sans -o, le compilateur produit généralement a.out."
-        ],
-        commands:
-          "cc -Wall -Wextra -Werror *.c -o programme\n./programme\nfile ./programme",
-        questions: [
-          "Quelle différence entre une erreur et un warning ?",
-          "Pourquoi -Werror est-il utile dans la Piscine ?",
-          "Que devient *.c avant l’exécution de cc ?",
-          "Que se passe-t-il si deux fichiers définissent le même symbole ?"
-        ],
-        tests: [
-          "Compiler depuis le dossier attendu.",
-          "Vérifier le code retour de cc.",
-          "Confirmer le type du résultat avec file."
-        ],
-        alert:
-          "La commande ne compile que les fichiers C du dossier courant. Elle ignore les sources rangées dans des sous-dossiers.",
-        tutorNote:
-          "Faire reformuler chaque option est plus utile que faire réciter la commande complète."
-      },
-      {
-        title: "Redirections, pipe, cat -e et code retour",
-        kind: "Commandes",
-        tags: ["stdout", "stderr", "pipe", "exit status"],
-        body: [
-          "Un programme possède notamment une sortie standard, stdout, et une sortie d’erreur, stderr.",
-          "> output.txt envoie stdout dans output.txt en remplaçant son ancien contenu.",
-          "2> errors.txt envoie stderr dans errors.txt ; le chiffre 2 désigne le descripteur de stderr.",
-          "2>&1 demande à stderr de rejoindre la destination actuelle de stdout.",
-          "Le pipe | envoie la sortie standard de la commande de gauche vers l’entrée standard de la commande de droite.",
-          "cat -e rend visibles les fins de ligne avec un symbole $, ce qui permet de repérer les espaces et retours manquants.",
-          "echo $? affiche le code de retour de la dernière commande : 0 indique généralement un succès, une autre valeur signale un état différent."
-        ],
-        commands:
-          "./programme > output.txt 2> errors.txt\n./programme 2>&1 | cat -e\necho $?\n./programme >> output.txt",
-        questions: [
-          "Quelle sortie est capturée par > ?",
-          "Pourquoi le nombre 2 représente-t-il stderr ?",
-          "Quelle différence entre > et >> ?",
-          "À quelle commande correspond $? ?"
-        ],
-        tests: [
-          "Capturer stdout et stderr dans deux fichiers différents.",
-          "Afficher ensemble les deux flux avec cat -e.",
-          "Comparer le code retour après un succès et une erreur."
-        ],
-        alert:
-          "echo $? doit être lancé immédiatement après la commande étudiée, sinon il affichera le statut d’une autre commande.",
-        tutorNote:
-          "cat -e n’ajoute pas les symboles au fichier : il les montre uniquement dans son affichage."
-      },
-      {
-        title: "Comparer une sortie : diff -u",
-        kind: "Commandes",
-        tags: ["diff", "sortie attendue", "tests"],
-        body: [
-          "diff compare deux fichiers ligne par ligne.",
-          "-u demande le format unifié, plus lisible : quelques lignes de contexte entourent les différences.",
-          "Dans diff -u expected.txt output.txt, le premier fichier représente la référence et le second le résultat obtenu.",
-          "Les lignes précédées de - appartiennent à la référence mais manquent ou diffèrent dans le résultat.",
-          "Les lignes précédées de + viennent du résultat obtenu.",
-          "Sans différence, diff n’affiche rien et retourne généralement 0."
-        ],
-        commands:
-          "diff -u expected.txt output.txt\necho $?\ndiff -u <(printf 'Error\\n') <(./rush-01 mauvais_argument)",
-        questions: [
-          "Pourquoi l’ordre des deux fichiers compte-t-il ?",
-          "Que signifient les lignes + et - ?",
-          "Que signifie une absence totale de sortie de diff ?"
-        ],
-        tests: [
-          "Comparer une sortie correcte.",
-          "Ajouter un espace terminal pour observer la différence.",
-          "Comparer un saut de ligne manquant."
-        ],
-        alert:
-          "La syntaxe <(...) est une fonctionnalité de certains shells comme Bash ; elle n’est pas du C et n’est pas disponible partout.",
-        tutorNote:
-          "Pour une méthode portable, écris d’abord les deux sorties dans des fichiers, puis utilise diff -u."
-      },
-      {
-        title: "Contrôler le rendu Git",
-        kind: "Commandes",
-        tags: ["git status", "git diff", "whitespace"],
-        body: [
-          "git status --short affiche un résumé compact de l’état du dépôt.",
-          "Les deux colonnes indiquent l’état dans l’index et dans le dossier de travail. ?? indique un fichier non suivi.",
-          "git diff affiche les modifications non indexées par rapport à l’index.",
-          "git diff --check ne montre pas tout le diff : il recherche surtout des problèmes d’espaces, comme les espaces en fin de ligne ou certaines erreurs de whitespace.",
-          "Ces commandes ne modifient pas le dépôt ; elles servent à comprendre ce qui sera réellement rendu."
-        ],
-        commands:
-          "git status --short\ngit diff --check\ngit diff\ngit diff --cached",
-        questions: [
-          "Que signifie ?? dans git status --short ?",
-          "Pourquoi un fichier non suivi peut-il manquer au rendu ?",
-          "Quelle différence entre git diff et git diff --cached ?",
-          "Pourquoi git diff --check peut réussir alors que le code est faux ?"
-        ],
-        tests: [
-          "Identifier les fichiers modifiés et non suivis.",
-          "Vérifier les modifications indexées et non indexées.",
-          "Repérer les erreurs d’espaces avant la soumission."
-        ],
-        alert:
-          "Pendant une review, utilise Git pour inspecter. Ne nettoie pas le dépôt du groupe avec des commandes de restauration destructrices.",
-        tutorNote:
-          "Un fichier présent sur le disque mais non suivi par Git peut ne pas se trouver dans la soumission attendue."
-      },
-      {
-        title: "Vérifier la Norme : norminette",
-        kind: "Commandes",
-        tags: ["Norme", "norminette", "style"],
-        body: [
-          "norminette analyse les fichiers C et headers selon les règles de style demandées par 42.",
-          "Sans argument, elle inspecte généralement le dossier courant selon sa configuration.",
-          "On peut lui donner un dossier ou des fichiers précis pour limiter le contrôle.",
-          "Une sortie sans erreur de Norme ne garantit ni que le programme compile, ni qu’il fonctionne.",
-          "Inversement, un programme fonctionnel peut rester non conforme à la Norme."
-        ],
-        commands:
-          "norminette\nnorminette ex00\nnorminette *.c *.h",
-        questions: [
-          "Que vérifie norminette ?",
-          "Que ne vérifie-t-elle pas ?",
-          "Pourquoi faut-il aussi compiler et exécuter des tests ?"
-        ],
-        tests: [
-          "Lancer la Norme sur le périmètre réellement rendu.",
-          "Relier chaque erreur affichée au fichier et à la ligne concernés."
-        ],
-        alert:
-          "La version de Norminette et les règles applicables peuvent évoluer. Utilise l’outil fourni dans l’environnement de la Piscine.",
-        tutorNote:
-          "Norme, compilation et comportement sont trois contrôles complémentaires."
-      },
-      {
-        title: "Corrections techniques à garder en tête",
-        kind: "Référence",
-        tags: ["malloc", "argc", "stack", "heap"],
-        body: [
-          "Rush 01 reçoit un argument contenant 16 valeurs : argc vaut 2.",
-          "malloc renvoie NULL en cas d’échec, pas -1.",
-          "La stack est automatique et limitée ; la heap est dynamique, contrôlée et également limitée.",
-          "Une fuite mémoire, un accès invalide et un crash sont trois défauts différents.",
-          "Les règles précises de notation viennent du barème actif ; ne les invente pas à partir d’une habitude.",
-        ],
-        questions: [],
-        tests: [],
-        alert:
-          "Quand une note de réunion et le sujet semblent se contredire, reviens au sujet et au barème disponibles le jour de la review.",
-        tutorNote:
-          "Cette toolbox aide à préparer la review ; elle ne remplace pas les consignes de référence qui peuvent évoluer.",
-      },
-      {
-        title: "Tu n’as pas besoin d’être infaillible pour être un·e bon·ne tuteur·rice",
-        kind: "Pour les tuteur·rices",
-        tags: ["syndrome de l’imposteur", "confiance", "tutorat"],
-        body: [
-          "Si tu as parfois peur de ne pas être assez technique, de poser une mauvaise question ou de rater un problème important, ce doute ne signifie pas que tu es une fraude.",
-          "Être tuteur·rice ne veut pas dire connaître toutes les solutions, réciter tout le C de mémoire ou être la personne la plus avancée de la salle. Ton rôle est d’installer un cadre sûr, d’observer rigoureusement, de poser des questions utiles et de savoir quand demander un second avis.",
-          "Une bonne review ne dépend pas d’une performance parfaite. Elle dépend de ton honnêteté : vérifier plutôt qu’inventer, dire « je ne suis pas certain·e » quand il le faut, revenir au sujet et solliciter le staff lorsque la situation dépasse ton rôle.",
-          "Tu peux apprendre pendant que tu accompagnes. Chaque groupe, chaque architecture et chaque question difficile enrichissent aussi ta propre compréhension.",
-          "Regarde les faits : les personnes que tu as aidées à formuler leur raisonnement, les erreurs que tu as rendues compréhensibles et les feedbacks qui leur ont donné une prochaine étape claire.",
-          "Un·e bon·ne tuteur·rice n’est pas une personne qui ne doute jamais. C’est une personne qui transforme son doute en vérification, reste juste avec le groupe et continue elle aussi à progresser."
-        ],
-        questions: [
-          "Quels faits ai-je réellement observés pendant cette review ?",
-          "Qu’est-ce que j’ai aidé le groupe à mieux comprendre ?",
-          "Sur quel point puis-je demander un second avis au staff ou à un·e autre tuteur·rice ?"
-        ],
-        tests: [],
-        alert:
-          "Si la pression du rôle devient envahissante, t’isole ou te fait souffrir durablement, parle-en à une personne de confiance, au staff ou à un·e professionnel·le. Accompagner les autres ne t’oblige pas à tout porter seul·e.",
-        tutorNote:
-          "Tu as été choisi·e pour accompagner, pas pour être parfait·e. Prépare-toi, reste curieux·se, demande de l’aide quand il le faut et fais confiance à ta capacité à apprendre : tu as ta place comme tuteur·rice."
       },
     ],
   },
