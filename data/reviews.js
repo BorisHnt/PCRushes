@@ -896,13 +896,12 @@ window.PC_RUSH_REVIEWS = [
         title: "CEPENDANT",
         kind: "Pause",
         tags: ["humour", "limites", "consentement"],
-        body: [
-          "Entre personnes qui se connaissent, avec une blague immédiatement visible et sans conséquence, un petit rappel peut marquer les esprits.",
-          "La règle pratique : si tu ne peux pas tout arrêter en cinq secondes et expliquer la commande en une phrase, ne la lance pas.",
-        ],
+        body: [],
         image: {
           src: "assets/pictures/cependant-seb-du-grenier.gif",
           alt: "Cependant",
+          caption:
+            "Entre personnes qui se connaissent, avec une blague immédiatement visible et sans conséquence, un petit rappel peut marquer les esprits. La règle pratique : si tu ne peux pas tout arrêter en cinq secondes et expliquer la commande en une phrase, ne la lance pas.",
         },
         alert:
           "Même pour rire, pas de commande destructrice, pas de modification de profil shell, pas de commit, pas de message envoyé au nom de la personne.",
