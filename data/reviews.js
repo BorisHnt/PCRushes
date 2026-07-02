@@ -69,6 +69,7 @@ window.PC_RUSH_REVIEWS = [
       {
         title: "Formulaire officiel condensé",
         kind: "Barème",
+        official: true,
         tags: ["formulaire 42", "fichiers", "crash", "tests"],
         body: [
           "Le formulaire Square insiste d’abord sur le dépôt : bon propriétaire, bon projet, bon répertoire, aucun fichier inutile et aucune surprise liée à un alias ou un script non relu.",
@@ -264,6 +265,7 @@ window.PC_RUSH_REVIEWS = [
       {
         title: "Formulaire officiel condensé",
         kind: "Barème",
+        official: true,
         tags: ["formulaire 42", "erreurs", "grille", "explication"],
         body: [
           "Le formulaire Skyscraper commence par les mêmes préliminaires de dépôt, de scripts et de fichiers inutiles, puis rappelle que la Norme ou un mauvais rendu peut arrêter l’évaluation.",
@@ -528,6 +530,7 @@ window.PC_RUSH_REVIEWS = [
       {
         title: "Formulaire officiel condensé",
         kind: "Barème",
+        official: true,
         tags: ["formulaire 42", "Makefile", "dictionnaire", "grands nombres"],
         body: [
           "Le formulaire Rosetta vérifie d’abord qu’il y a un rendu au bon endroit, que le Makefile ne relink pas inutilement et que le programme réagit correctement avec ou sans dictionnaire personnalisé.",
@@ -865,9 +868,13 @@ window.PC_RUSH_REVIEWS = [
         kind: "Sécurité",
         tags: ["session", "respect", "limites"],
         body: [
-          "Le troll d’une session oubliée est fortement déconseillé. Une session ouverte donne accès à des données, des dépôts, des messages et parfois des credentials : ce n’est pas un terrain de jeu.",
-          "La bonne réaction reste de prévenir la personne, de verrouiller l’écran si c’est autorisé localement, ou de demander au staff quoi faire.",
-          "Si une blague est faite, elle doit rester non persistante, évidente, réversible et sans accès aux fichiers personnels.",
+          "Les blagues font partie de l’ambiance de la Piscine, mais le troll sur une session ouverte non verrouillée est fortement déconseillé.",
+          "Une session ouverte peut donner accès à des données personnelles, des dépôts, des messages, des fichiers de travail et parfois même des credentials. Ce n’est donc pas un terrain de jeu, même pour rire.",
+          "Une simple intrusion, même pensée comme une petite blague, peut être très violente et très mal vécue. Elle peut aussi détruire la confiance d’un·e candidat·e envers l’école, les tuteurs et les tutrices.",
+          "La bonne réaction reste simple : prévenir la personne concernée, verrouiller l’écran si c’est autorisé localement, ou demander au staff quoi faire.",
+          "Si une blague est faite, elle doit rester non persistante, évidente, réversible, et ne jamais impliquer l’accès aux fichiers personnels, aux comptes, aux dépôts ou aux messages privés.",
+          "On peut faire rire sans mettre quelqu’un en difficulté. On évite surtout de transformer une blague en problème disciplinaire : tout irrespect peut entraîner des sanctions, comme la fin d’une mission de tutorat et/ou des sanctions prises par le campus de rattachement.",
+          "Bref : soyez drôles, pas dangereux.",
         ],
         questions: [
           "Est-ce que cette blague laisse une trace ou modifie quelque chose ?",
@@ -907,16 +914,14 @@ window.PC_RUSH_REVIEWS = [
         kind: "Rappel",
         tags: ["TIG", "blocked", "42"],
         body: [
-          "Le site de 42 possède une page /blocked qui affiche le message de TIG. Ne publie pas l’URL complète : le rappel suffit.",
-          "C’est une bonne référence visuelle pour rappeler le sujet sans toucher à la session de quelqu’un.",
+          "Le site de 42 possède une page /blocked qui affiche le message de TIG.",
+          "C’est une référence visuelle claire pour rappeler le sujet sans toucher à la session de quelqu’un.",
         ],
         commands:
           "Chemin à retenir : /blocked\nVariante localisée : /fr/blocked",
         image: {
           src: "assets/pictures/TIG.png",
           alt: "Message TIG de la page blocked",
-          caption:
-            "Image de rappel à afficher dans le guide, sans publier l’URL complète.",
         },
         questions: [
           "Est-ce qu’un simple rappel visuel suffit au lieu de toucher au terminal ?",
@@ -935,7 +940,7 @@ window.PC_RUSH_REVIEWS = [
           "Certaines commandes dépendent d’outils installés sur la machine : si l’outil manque, on passe à autre chose.",
         ],
         commands:
-          "timeout 5s yes \"Pense a verrouiller ta session.\"\n\ncommand -v cowsay >/dev/null && cowsay \"Session ouverte, cafe offert ?\" || printf '< Session ouverte, cafe offert ? >\\n'\n\ncommand -v figlet >/dev/null && figlet \"LOCK\" || printf '*** LOCK ***\\n'\n\ntimeout 10s curl -s parrot.live\n\nmpv --vo=tct --no-audio --really-quiet \"https://youtu.be/dQw4w9WgXcQ\"",
+          "timeout 5s yes \"Pense a verrouiller ta session.\"\n\ntimeout 10s curl -s parrot.live\n\ncurl -fsSL -o /tmp/roll.sh https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh\nless /tmp/roll.sh\nbash /tmp/roll.sh",
         questions: [
           "La commande se termine-t-elle toute seule ou clairement avec Ctrl+C ?",
           "Est-ce que la commande écrit quelque chose sur le disque ?",
@@ -943,14 +948,15 @@ window.PC_RUSH_REVIEWS = [
         ],
         tests: [
           "Préférer timeout pour les commandes qui streament ou bouclent.",
-          "Vérifier avec command -v avant d’utiliser cowsay, figlet ou mpv.",
-          "Ne pas lancer de commande distante pipe vers sh ou bash.",
+          "Relire un script distant avant de l’exécuter.",
+          "Ne jamais lancer le script Rickroll avec l’option inject.",
+          "Ne pas lancer de commande distante pipe vers sh ou bash sur une session ouverte.",
           "Ne pas ajouter d’alias, de hook Git, de cron ou de modification de .bashrc.",
         ],
         alert:
-          "Ne lance jamais une commande récupérée sur Internet directement dans un shell. Pas de curl ... | sh, même pour une blague.",
+          "Le script Rickroll contient une option qui peut écrire dans .bashrc. Pour rester dans le cadre, on le lit avant et on le lance sans argument.",
         tutorNote:
-          "Le rick roll terminal via mpv est optionnel : si l’outil n’est pas installé, garde le rappel simple.",
+          "La version courte en curl pipe bash existe, mais elle est volontairement évitée ici : sur une session ouverte, relire avant d’exécuter fait partie de la blague responsable.",
       },
       {
         title: "Ce qui est hors limite",
@@ -998,6 +1004,7 @@ window.PC_RUSH_REVIEWS = [
       {
         title: "Préliminaires officiels 42",
         kind: "Cadre",
+        official: true,
         tags: ["formulaire 42", "dépôt", "scripts", "crash"],
         body: [
           "Les formulaires de rush commencent tous par le même cadre : rester courtois, constructif et sérieux, puis identifier les dysfonctionnements avec le groupe évalué.",

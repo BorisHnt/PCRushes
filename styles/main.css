@@ -395,6 +395,31 @@ button:hover {
   padding: 1.55rem 0;
 }
 
+.review-block--official {
+  margin: 1.3rem 0;
+  border: 1px solid var(--warning-line);
+  border-left-width: 6px;
+  border-radius: var(--radius);
+  background: #fffaf0;
+  padding: 1rem;
+}
+
+.review-block--official .block-heading {
+  margin-bottom: 0.15rem;
+}
+
+.review-block--official .block-heading > span {
+  color: var(--warning-line);
+}
+
+.official-notice {
+  margin: 0 0 0.75rem !important;
+  color: var(--warning-line);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
 .block-heading {
   display: flex;
   align-items: baseline;

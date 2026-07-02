@@ -113,10 +113,18 @@ function renderBlocks(review) {
       const commands = block.commands
         ? `<pre><code>${escapeHtml(block.commands)}</code></pre>`
         : "";
+      const classes = ["review-block", block.official ? "review-block--official" : ""]
+        .filter(Boolean)
+        .join(" ");
+      const officialNotice = block.official
+        ? '<p class="official-notice" data-reading>Encadré formulaire 42</p>'
+        : "";
+      const questionTitle = block.official ? "Questions du formulaire" : "Questions à poser";
+      const testsTitle = block.official ? "Points à vérifier" : "Tests utiles";
       const questions = Array.isArray(block.questions) && block.questions.length
         ? `
           <div class="question-group">
-            <h4>Questions à poser</h4>
+            <h4>${questionTitle}</h4>
             <ul>
               ${block.questions.map((line) => `<li data-reading>${escapeHtml(line)}</li>`).join("")}
             </ul>
@@ -126,7 +134,7 @@ function renderBlocks(review) {
       const tests = Array.isArray(block.tests) && block.tests.length
         ? `
           <div class="test-group">
-            <h4>Tests utiles</h4>
+            <h4>${testsTitle}</h4>
             <ul>
               ${block.tests.map((line) => `<li data-reading>${escapeHtml(line)}</li>`).join("")}
             </ul>
@@ -141,11 +149,12 @@ function renderBlocks(review) {
         : "";
 
       return `
-        <article class="review-block" id="${escapeHtml(id)}">
+        <article class="${classes}" id="${escapeHtml(id)}">
           <div class="block-heading">
             <h3>${escapeHtml(block.title)}</h3>
             <span>${escapeHtml(block.kind)}</span>
           </div>
+          ${officialNotice}
           ${renderTags(block.tags)}
           ${block.body.map((line) => `<p data-reading>${escapeHtml(line)}</p>`).join("")}
           ${renderBlockImage(block.image)}
