@@ -940,7 +940,7 @@ window.PC_RUSH_REVIEWS = [
           "Certaines commandes dépendent d’outils installés sur la machine : si l’outil manque, on passe à autre chose.",
         ],
         commands:
-          "timeout 5s yes \"Pense a verrouiller ta session.\"\n\ntimeout 10s curl -s parrot.live\n\ncurl -fsSL -o /tmp/roll.sh https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh\nless /tmp/roll.sh\nbash /tmp/roll.sh",
+          "timeout 5s yes \"Pense a verrouiller ta session.\"\n\ntimeout 10s curl -s parrot.live\n\ncurl -fsSL https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash\n\ncurl -fsSL -o /tmp/roll.sh https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh\nif ! command -v python >/dev/null && command -v python3 >/dev/null; then sed 's/^python </python3 </' /tmp/roll.sh > /tmp/roll-py3.sh && bash /tmp/roll-py3.sh; else bash /tmp/roll.sh; fi",
         questions: [
           "La commande se termine-t-elle toute seule ou clairement avec Ctrl+C ?",
           "Est-ce que la commande écrit quelque chose sur le disque ?",
@@ -948,15 +948,15 @@ window.PC_RUSH_REVIEWS = [
         ],
         tests: [
           "Préférer timeout pour les commandes qui streament ou bouclent.",
-          "Relire un script distant avant de l’exécuter.",
+          "Si la version courte ne marche pas, utiliser la version fallback qui remplace python par python3.",
           "Ne jamais lancer le script Rickroll avec l’option inject.",
-          "Ne pas lancer de commande distante pipe vers sh ou bash sur une session ouverte.",
+          "Ne pas ajouter d’option au script récupéré en ligne.",
           "Ne pas ajouter d’alias, de hook Git, de cron ou de modification de .bashrc.",
         ],
         alert:
-          "Le script Rickroll contient une option qui peut écrire dans .bashrc. Pour rester dans le cadre, on le lit avant et on le lance sans argument.",
+          "Le script Rickroll contient une option inject qui peut écrire dans .bashrc. Pour rester dans le cadre, lance-le sans argument.",
         tutorNote:
-          "La version courte en curl pipe bash existe, mais elle est volontairement évitée ici : sur une session ouverte, relire avant d’exécuter fait partie de la blague responsable.",
+          "La version avec pipe est pratique pour une blague rapide ; le fallback sert surtout aux postes où la commande python n’est pas disponible.",
       },
       {
         title: "Ce qui est hors limite",
