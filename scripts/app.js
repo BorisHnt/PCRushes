@@ -51,18 +51,6 @@ function slugify(value) {
     .replace(/(^-|-$)/g, "");
 }
 
-function renderTags(tags) {
-  if (!Array.isArray(tags) || tags.length === 0) {
-    return "";
-  }
-
-  return `
-    <ul class="tag-list" aria-label="Tags">
-      ${tags.map((tag) => `<li>${escapeHtml(tag)}</li>`).join("")}
-    </ul>
-  `;
-}
-
 function renderBlockImage(image) {
   if (!image?.src) {
     return "";
@@ -113,14 +101,11 @@ function renderBlocks(review) {
       const commands = block.commands
         ? `<pre><code>${escapeHtml(block.commands)}</code></pre>`
         : "";
-      const classes = ["review-block", block.official ? "review-block--official" : ""]
+      const classes = ["review-block", block.reviewForm ? "review-block--review-form" : ""]
         .filter(Boolean)
         .join(" ");
-      const officialNotice = block.official
-        ? '<p class="official-notice" data-reading>Encadré formulaire 42</p>'
-        : "";
-      const questionTitle = block.official ? "Questions du formulaire" : "Questions à poser";
-      const testsTitle = block.official ? "Points à vérifier" : "Tests utiles";
+      const questionTitle = block.reviewForm ? "Questions du formulaire" : "Questions à poser";
+      const testsTitle = block.reviewForm ? "Points à vérifier" : "Tests utiles";
       const questions = Array.isArray(block.questions) && block.questions.length
         ? `
           <div class="question-group">
@@ -147,6 +132,9 @@ function renderBlocks(review) {
       const tutorNote = block.tutorNote
         ? `<p class="tutor-note" data-reading>${escapeHtml(block.tutorNote)}</p>`
         : "";
+      const afterImage = Array.isArray(block.afterImage)
+        ? block.afterImage.map((line) => `<p data-reading>${escapeHtml(line)}</p>`).join("")
+        : "";
 
       return `
         <article class="${classes}" id="${escapeHtml(id)}">
@@ -154,10 +142,9 @@ function renderBlocks(review) {
             <h3>${escapeHtml(block.title)}</h3>
             <span>${escapeHtml(block.kind)}</span>
           </div>
-          ${officialNotice}
-          ${renderTags(block.tags)}
           ${block.body.map((line) => `<p data-reading>${escapeHtml(line)}</p>`).join("")}
           ${renderBlockImage(block.image)}
+          ${afterImage}
           ${commands}
           <div class="block-columns">
             ${questions}

@@ -293,8 +293,7 @@ button:hover {
   color: var(--muted);
 }
 
-.meta-list,
-.tag-list {
+.meta-list {
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
@@ -307,8 +306,7 @@ button:hover {
   margin-bottom: 1.45rem;
 }
 
-.meta-list li,
-.tag-list li {
+.meta-list li {
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface-muted);
@@ -395,7 +393,7 @@ button:hover {
   padding: 1.55rem 0;
 }
 
-.review-block--official {
+.review-block--review-form {
   margin: 1.3rem 0;
   border: 1px solid var(--warning-line);
   border-left-width: 6px;
@@ -404,20 +402,12 @@ button:hover {
   padding: 1rem;
 }
 
-.review-block--official .block-heading {
+.review-block--review-form .block-heading {
   margin-bottom: 0.15rem;
 }
 
-.review-block--official .block-heading > span {
+.review-block--review-form .block-heading > span {
   color: var(--warning-line);
-}
-
-.official-notice {
-  margin: 0 0 0.75rem !important;
-  color: var(--warning-line);
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
 }
 
 .block-heading {

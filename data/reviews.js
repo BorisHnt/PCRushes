@@ -67,9 +67,9 @@ window.PC_RUSH_REVIEWS = [
           "Vérifier le dépôt en premier évite de passer vingt minutes sur le mauvais dossier.",
       },
       {
-        title: "Formulaire officiel condensé",
+        title: "Formulaire de review condensé",
         kind: "Barème",
-        official: true,
+        reviewForm: true,
         tags: ["formulaire 42", "fichiers", "crash", "tests"],
         body: [
           "Le formulaire Square insiste d’abord sur le dépôt : bon propriétaire, bon projet, bon répertoire, aucun fichier inutile et aucune surprise liée à un alias ou un script non relu.",
@@ -78,7 +78,7 @@ window.PC_RUSH_REVIEWS = [
           "Tout comportement inattendu pendant la défense, comme segfault, bus error, boucle infinie ou terminaison incontrôlée, doit être traité comme un crash bloquant.",
         ],
         questions: [
-          "Est-ce bien le dépôt Git officiel du groupe, cloné dans un dossier vide ?",
+          "Est-ce bien le dépôt Git du groupe, cloné dans un dossier vide ?",
           "Le rendu contient-il uniquement les fichiers demandés au bon endroit ?",
           "Pouvez-vous expliquer pourquoi je modifie le main pour tester une autre dimension ?",
           "Que doit faire le programme sur les exemples du sujet, puis sur 1 et 2 ?",
@@ -92,7 +92,7 @@ window.PC_RUSH_REVIEWS = [
         alert:
           "Le formulaire autorise à discuter du code après un échec bloquant, mais le rendu n’est alors plus noté comme fonctionnel.",
         tutorNote:
-          "Cette fiche sert de rappel du barème officiel ; les autres fiches donnent la méthode pour conduire la discussion technique.",
+          "Cette fiche sert de rappel du barème de review ; les autres fiches donnent la méthode pour conduire la discussion technique.",
       },
       {
         title: "Tour du code et répartition",
@@ -263,9 +263,9 @@ window.PC_RUSH_REVIEWS = [
           "Tester le parsing d’abord révèle vite l’architecture du programme et la qualité de la gestion d’erreur.",
       },
       {
-        title: "Formulaire officiel condensé",
+        title: "Formulaire de review condensé",
         kind: "Barème",
-        official: true,
+        reviewForm: true,
         tags: ["formulaire 42", "erreurs", "grille", "explication"],
         body: [
           "Le formulaire Skyscraper commence par les mêmes préliminaires de dépôt, de scripts et de fichiers inutiles, puis rappelle que la Norme ou un mauvais rendu peut arrêter l’évaluation.",
@@ -528,9 +528,9 @@ window.PC_RUSH_REVIEWS = [
           "Make veut « faire » des fichiers à partir de règles. Le .PHONY sert à garder make dans le bon cadre quand une cible est une action, pas un fichier réel.",
       },
       {
-        title: "Formulaire officiel condensé",
+        title: "Formulaire de review condensé",
         kind: "Barème",
-        official: true,
+        reviewForm: true,
         tags: ["formulaire 42", "Makefile", "dictionnaire", "grands nombres"],
         body: [
           "Le formulaire Rosetta vérifie d’abord qu’il y a un rendu au bon endroit, que le Makefile ne relink pas inutilement et que le programme réagit correctement avec ou sans dictionnaire personnalisé.",
@@ -900,9 +900,10 @@ window.PC_RUSH_REVIEWS = [
         image: {
           src: "assets/pictures/cependant-seb-du-grenier.gif",
           alt: "Cependant",
-          caption:
-            "Entre personnes qui se connaissent, avec une blague immédiatement visible et sans conséquence, un petit rappel peut marquer les esprits. La règle pratique : si tu ne peux pas tout arrêter en cinq secondes et expliquer la commande en une phrase, ne la lance pas.",
         },
+        afterImage: [
+          "Entre personnes qui se connaissent, avec une blague immédiatement visible et sans conséquence, un petit rappel peut marquer les esprits. La règle pratique : si tu ne peux pas tout arrêter en cinq secondes et expliquer la commande en une phrase, ne la lance pas.",
+        ],
         alert:
           "Même pour rire, pas de commande destructrice, pas de modification de profil shell, pas de commit, pas de message envoyé au nom de la personne.",
         tutorNote:
@@ -1001,13 +1002,13 @@ window.PC_RUSH_REVIEWS = [
     ],
     blocks: [
       {
-        title: "Préliminaires officiels 42",
+        title: "Préliminaires 42",
         kind: "Cadre",
-        official: true,
+        reviewForm: true,
         tags: ["formulaire 42", "dépôt", "scripts", "crash"],
         body: [
           "Les formulaires de rush commencent tous par le même cadre : rester courtois, constructif et sérieux, puis identifier les dysfonctionnements avec le groupe évalué.",
-          "L’évaluation doit porter uniquement sur le contenu du dépôt Git officiel du groupe ou de l’étudiant·e, idéalement cloné dans un dossier vide.",
+          "L’évaluation doit porter uniquement sur le contenu du dépôt Git du groupe ou de l’étudiant·e, idéalement cloné dans un dossier vide.",
           "Avant de lancer une commande, vérifie les alias et les scripts utilisés pour l’évaluation. Les personnes évaluatrices et évaluées doivent comprendre ce qui va être exécuté.",
           "Si l’évaluateur·rice n’a pas encore terminé le projet, le formulaire impose de lire le sujet complet avant la défense.",
           "Pendant la défense, un segfault, bus error, crash, boucle infinie ou arrêt incontrôlé doit être traité comme un événement bloquant selon le barème.",
@@ -1015,7 +1016,7 @@ window.PC_RUSH_REVIEWS = [
         commands:
           "alias\npwd\ngit remote -v\ngit status --short\nfind . -maxdepth 2 -type f -printf '%P\\n' | sort",
         questions: [
-          "Est-ce le dépôt Git officiel du groupe évalué ?",
+          "Est-ce le dépôt Git du groupe évalué ?",
           "Le dépôt a-t-il été cloné dans un dossier vide ?",
           "Quels scripts ou alias allons-nous utiliser, et les avez-vous relus ?",
           "Le rendu contient-il uniquement les fichiers demandés ?",
@@ -1152,7 +1153,7 @@ window.PC_RUSH_REVIEWS = [
         alert:
           "Ne demande pas à une personne de raconter publiquement des détails sensibles devant tout le groupe.",
         tutorNote:
-          "Le rôle du ou de la tuteur·rice est de sécuriser et transmettre, pas de devenir médiateur·rice officiel·le ou enquêteur·rice.",
+          "Le rôle du ou de la tuteur·rice est de sécuriser et transmettre, pas de devenir médiateur·rice désigné·e ou enquêteur·rice.",
       },
       {
         title: "Feedback clair et exhaustif",
@@ -1484,7 +1485,7 @@ window.PC_RUSH_REVIEWS = [
         alert:
           "Quand une note de réunion et le sujet semblent se contredire, reviens au sujet et au barème disponibles le jour de la review.",
         tutorNote:
-          "Cette toolbox aide à préparer la review ; elle ne remplace pas les consignes officielles qui peuvent évoluer.",
+          "Cette toolbox aide à préparer la review ; elle ne remplace pas les consignes de référence qui peuvent évoluer.",
       },
       {
         title: "Tu n’as pas besoin d’être infaillible pour être un·e bon·ne tuteur·rice",
