@@ -940,7 +940,7 @@ window.PC_RUSH_REVIEWS = [
           "Certaines commandes dépendent d’outils installés sur la machine : si l’outil manque, on passe à autre chose.",
         ],
         commands:
-          "timeout 5s yes \"Pense a verrouiller ta session.\"\n\ntimeout 10s curl -s parrot.live\n\ncurl -fsSL https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash\n\ncurl -fsSL -o /tmp/roll.sh https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh\nif ! command -v python >/dev/null && command -v python3 >/dev/null; then sed 's/^python </python3 </' /tmp/roll.sh > /tmp/roll-py3.sh && bash /tmp/roll-py3.sh; else bash /tmp/roll.sh; fi",
+          "timeout 5s yes \"Pense a verrouiller ta session.\"\n\ntimeout 10s curl -s parrot.live\n\ncurl -fsSL https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash\n\ncurl -fsSL -o /tmp/roll.sh https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh\n",
         questions: [
           "La commande se termine-t-elle toute seule ou clairement avec Ctrl+C ?",
           "Est-ce que la commande écrit quelque chose sur le disque ?",
