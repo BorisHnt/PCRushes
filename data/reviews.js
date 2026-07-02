@@ -67,6 +67,33 @@ window.PC_RUSH_REVIEWS = [
           "Vérifier le dépôt en premier évite de passer vingt minutes sur le mauvais dossier.",
       },
       {
+        title: "Formulaire officiel condensé",
+        kind: "Barème",
+        tags: ["formulaire 42", "fichiers", "crash", "tests"],
+        body: [
+          "Le formulaire Square insiste d’abord sur le dépôt : bon propriétaire, bon projet, bon répertoire, aucun fichier inutile et aucune surprise liée à un alias ou un script non relu.",
+          "La règle spécifique vérifie la présence de main.c, ft_putchar.c et rush0X.c, puis la compilation avec -Wall -Wextra -Werror et la Norme sur les fichiers C.",
+          "Les tests commencent par les exemples du sujet, puis par des entrées simples comme 1 et 2, avant d’élargir à plusieurs dimensions choisies par l’évaluateur·rice.",
+          "Tout comportement inattendu pendant la défense, comme segfault, bus error, boucle infinie ou terminaison incontrôlée, doit être traité comme un crash bloquant.",
+        ],
+        questions: [
+          "Est-ce bien le dépôt Git officiel du groupe, cloné dans un dossier vide ?",
+          "Le rendu contient-il uniquement les fichiers demandés au bon endroit ?",
+          "Pouvez-vous expliquer pourquoi je modifie le main pour tester une autre dimension ?",
+          "Que doit faire le programme sur les exemples du sujet, puis sur 1 et 2 ?",
+        ],
+        tests: [
+          "Bon dépôt, bon dossier et absence de fichiers parasites.",
+          "Compilation stricte et norminette sur les fichiers C.",
+          "Exemples du sujet, valeurs 1 et 2, puis plusieurs dimensions supplémentaires.",
+          "Arrêt de l’évaluation notée si le programme plante ou boucle indéfiniment.",
+        ],
+        alert:
+          "Le formulaire autorise à discuter du code après un échec bloquant, mais le rendu n’est alors plus noté comme fonctionnel.",
+        tutorNote:
+          "Cette fiche sert de rappel du barème officiel ; les autres fiches donnent la méthode pour conduire la discussion technique.",
+      },
+      {
         title: "Tour du code et répartition",
         kind: "Compréhension",
         tags: ["lead", "équipe", "explication"],
@@ -235,6 +262,35 @@ window.PC_RUSH_REVIEWS = [
           "Tester le parsing d’abord révèle vite l’architecture du programme et la qualité de la gestion d’erreur.",
       },
       {
+        title: "Formulaire officiel condensé",
+        kind: "Barème",
+        tags: ["formulaire 42", "erreurs", "grille", "explication"],
+        body: [
+          "Le formulaire Skyscraper commence par les mêmes préliminaires de dépôt, de scripts et de fichiers inutiles, puis rappelle que la Norme ou un mauvais rendu peut arrêter l’évaluation.",
+          "La première série de tests doit casser la gestion d’erreur avant de valider le solveur : trop de valeurs, pas assez de valeurs, valeur hors plage, chaîne sans espaces et chaîne non numérique.",
+          "Une grille syntaxiquement correcte mais impossible sert à discuter l’algorithme de contrôle, pas seulement le parsing.",
+          "L’explication doit venir d’un membre qui n’est pas forcément le plus à l’aise. Si une personne ne peut pas expliquer le code, le formulaire demande de le considérer comme non satisfaisant.",
+        ],
+        commands:
+          "./rush-01 \"4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2 3\"\n./rush-01 \"4 3 2 1 1 2 2 2 4 3 2 1 1 2 2\"\n./rush-01 \"4 3 2 1 1 2 2 2 6 3 2 1 1 2 2 2\"\n./rush-01 \"4321122243211222\"\n./rush-01 \"Hellos\"\n./rush-01 \"4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 4\"",
+        questions: [
+          "Qui peut expliquer le solveur sans regarder le code ?",
+          "Que font les lignes avec << ou >> si votre code en contient ?",
+          "Quelle structure de données représente la grille et pourquoi ?",
+          "Quelle valeur remonte quand la grille est remplie ? Et quand elle est impossible ?",
+        ],
+        tests: [
+          "Arguments mal formés : trop, pas assez, hors plage, mauvais séparateurs, texte.",
+          "Grille incorrecte ou impossible pour challenger le contrôle.",
+          "Cartes générées ou construites à la main, en vérifiant soi-même la solution.",
+          "Vérification des retours de malloc et tentative de provoquer un crash proprement observable.",
+        ],
+        alert:
+          "Le formulaire est strict sur l’explication collective : un programme qui marche mais que le groupe ne sait pas expliquer reste un problème majeur.",
+        tutorNote:
+          "Utilise cette fiche comme garde-fou : parsing, solveur, explication, mémoire. Ne commence pas par une grille valide qui peut donner une confiance artificielle.",
+      },
+      {
         title: "Algorithme en deux phrases",
         kind: "Architecture",
         tags: ["solveur", "backtracking", "résumé"],
@@ -360,7 +416,7 @@ window.PC_RUSH_REVIEWS = [
           "Le programme doit afficher la première solution trouvée pour une entrée valide et Error si aucune solution n’existe.",
         ],
         commands:
-          "python3 generator.py\n./rush-01 \"4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2\"\n./rush-01 \"1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\"",
+          "python3 generator.py 4\n./rush-01 \"4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2\"\n./rush-01 \"1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\"",
         questions: [
           "Comment avez-vous vérifié que la grille imprimée respecte les 16 vues ?",
           "Votre solveur peut-il produire deux fois une hauteur dans une colonne ?",
@@ -388,7 +444,7 @@ window.PC_RUSH_REVIEWS = [
           "Les piscineux·ses doivent savoir rediriger une sortie, lire un code de retour et répéter un test sans modifier le programme.",
         ],
         commands:
-          "cc -Wall -Wextra -Werror -o rush-01 *.c\n./rush-01 2>&1 | cat -e\n./rush-01 \"4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2\" | cat -e\ntimeout 5s ./rush-01 \"1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\"\necho $?\npython3 generator.py\nvalgrind --leak-check=full --track-origins=yes ./rush-01 \"4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2\"\nnorminette",
+          "cc -Wall -Wextra -Werror -o rush-01 *.c\n./rush-01 2>&1 | cat -e\n./rush-01 \"4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2\" | cat -e\ntimeout 5s ./rush-01 \"1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\"\necho $?\npython3 generator.py 4\nvalgrind --leak-check=full --track-origins=yes ./rush-01 \"4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2\"\nnorminette",
         questions: [
           "Que signifie 2>&1 dans cette commande ?",
           "À quoi sert echo $? juste après l’exécution ?",
@@ -468,6 +524,35 @@ window.PC_RUSH_REVIEWS = [
           "Un programme fonctionnel compilé à la main ne compense pas un Makefile inutilisable.",
         tutorNote:
           "Make veut « faire » des fichiers à partir de règles. Le .PHONY sert à garder make dans le bon cadre quand une cible est une action, pas un fichier réel.",
+      },
+      {
+        title: "Formulaire officiel condensé",
+        kind: "Barème",
+        tags: ["formulaire 42", "Makefile", "dictionnaire", "grands nombres"],
+        body: [
+          "Le formulaire Rosetta vérifie d’abord qu’il y a un rendu au bon endroit, que le Makefile ne relink pas inutilement et que le programme réagit correctement avec ou sans dictionnaire personnalisé.",
+          "Les entrées à challenger incluent la chaîne vide, des lettres, un nombre négatif, un nombre trop grand pour unsigned int, puis les mêmes familles avec un dictionnaire fourni en argument.",
+          "Les tests de base demandent de jouer avec 0, 000000, 10, 10000 et 99999999, tout en gardant en tête que seules les clés du dictionnaire initial sont attendues pour composer les résultats.",
+          "Les grands nombres doivent être testés jusqu’aux milliers, millions et milliards au minimum, avec surveillance des fuites mémoire pendant toute l’évaluation.",
+        ],
+        commands:
+          "./rush-02 \"\"\n./rush-02 abc\n./rush-02 -42\n./rush-02 4294967296\n./rush-02 0\n./rush-02 000000\n./rush-02 10\n./rush-02 10000\n./rush-02 99999999\n./rush-02 numbers.dict 1000000000",
+        questions: [
+          "Le Makefile relink-t-il quand aucun fichier n’a changé ?",
+          "Comment le programme choisit-il entre dictionnaire par défaut et dictionnaire personnalisé ?",
+          "Que faites-vous avec une chaîne vide, des lettres ou un nombre négatif ?",
+          "Comment prouvez-vous que le programme ne dépend pas d’un unsigned int ?",
+        ],
+        tests: [
+          "make fclean, make, puis make sans relink inutile.",
+          "Entrées invalides : vide, lettres, négatif, trop grand pour unsigned int.",
+          "Cas demandés par le formulaire : 0, 000000, 10, 10000, 99999999.",
+          "Milliers, millions, milliards et dictionnaire personnalisé.",
+        ],
+        alert:
+          "Le formulaire demande de surveiller les fuites pendant toute l’évaluation, pas seulement sur le chemin de succès.",
+        tutorNote:
+          "Les clés ajoutées hors dictionnaire initial peuvent avoir des comportements inattendus non éliminatoires ; teste surtout que les clés de référence sont correctement utilisées.",
       },
       {
         title: "Norme du sujet, pas seulement norminette",
@@ -755,6 +840,141 @@ window.PC_RUSH_REVIEWS = [
     ],
   },
   {
+    id: "trolls",
+    number: "TR",
+    shortTitle: "Trolls",
+    title: "Trolls - Sessions non verrouillées",
+    focus: "Rappel, limites, blagues sans dégâts",
+    duration: "À lire avant d’agir",
+    goal: "Ne rien casser",
+    summary:
+      "Un oubli de verrouillage est d’abord un sujet de sécurité et de respect. Cette page rappelle les limites, puis propose seulement des blagues temporaires, visibles et faciles à arrêter.",
+    checklist: [
+      "Rappeler que le troll est fortement déconseillé quand une session est oubliée.",
+      "Ne jamais lire, copier, modifier ou supprimer des fichiers personnels.",
+      "Ne jamais changer de configuration, d’alias, de mot de passe ou de session.",
+      "Limiter la blague à une commande visible et temporaire.",
+      "S’assurer que la personne peut comprendre la blague et en rire après coup.",
+      "Arrêter immédiatement si la personne revient ou semble mal à l’aise.",
+      "Transformer l’incident en rappel simple : verrouiller sa session.",
+      "Prévenir un membre du staff si l’oubli expose des données sensibles.",
+    ],
+    blocks: [
+      {
+        title: "Rappel à l’ordre",
+        kind: "Sécurité",
+        tags: ["session", "respect", "limites"],
+        body: [
+          "Le troll d’une session oubliée est fortement déconseillé. Une session ouverte donne accès à des données, des dépôts, des messages et parfois des credentials : ce n’est pas un terrain de jeu.",
+          "La bonne réaction reste de prévenir la personne, de verrouiller l’écran si c’est autorisé localement, ou de demander au staff quoi faire.",
+          "Si une blague est faite, elle doit rester non persistante, évidente, réversible et sans accès aux fichiers personnels.",
+        ],
+        questions: [
+          "Est-ce que cette blague laisse une trace ou modifie quelque chose ?",
+          "Est-ce que la personne concernée comprendra immédiatement le rappel ?",
+          "Est-ce que je serais à l’aise d’expliquer exactement ce que j’ai fait au staff ?",
+        ],
+        tests: [
+          "Aucune modification de fichier.",
+          "Aucun changement de configuration shell, Git, éditeur ou navigateur.",
+          "Aucune commande lancée en arrière-plan.",
+          "Arrêt possible avec Ctrl+C ou fermeture du terminal.",
+        ],
+        alert:
+          "Ne confonds pas rappel pédagogique et intrusion. Si tu as besoin de fouiller, de masquer l’action ou de la rendre persistante, c’est déjà hors cadre.",
+        tutorNote:
+          "Le meilleur troll reste souvent un simple post-it verbal : « pense à verrouiller ta session ». Le reste doit rester exceptionnel et bon enfant.",
+      },
+      {
+        title: "CEPENDANT",
+        kind: "Pause",
+        tags: ["humour", "limites", "consentement"],
+        body: [
+          "Entre personnes qui se connaissent, avec une blague immédiatement visible et sans conséquence, un petit rappel peut marquer les esprits.",
+          "La règle pratique : si tu ne peux pas tout arrêter en cinq secondes et expliquer la commande en une phrase, ne la lance pas.",
+        ],
+        image: {
+          src: "assets/pictures/cependant-seb-du-grenier.gif",
+          alt: "Cependant",
+        },
+        alert:
+          "Même pour rire, pas de commande destructrice, pas de modification de profil shell, pas de commit, pas de message envoyé au nom de la personne.",
+        tutorNote:
+          "Le but est que la personne retienne de verrouiller sa session, pas qu’elle perde confiance dans les autres.",
+      },
+      {
+        title: "La page blocked de 42",
+        kind: "Rappel",
+        tags: ["TIG", "blocked", "42"],
+        body: [
+          "Le site de 42 possède une page /blocked qui affiche le message de TIG. Ne publie pas l’URL complète : le rappel suffit.",
+          "C’est une bonne référence visuelle pour rappeler le sujet sans toucher à la session de quelqu’un.",
+        ],
+        commands:
+          "Chemin à retenir : /blocked\nVariante localisée : /fr/blocked",
+        image: {
+          src: "assets/pictures/TIG.png",
+          alt: "Message TIG de la page blocked",
+          caption:
+            "Image de rappel à afficher dans le guide, sans publier l’URL complète.",
+        },
+        questions: [
+          "Est-ce qu’un simple rappel visuel suffit au lieu de toucher au terminal ?",
+          "Est-ce que la personne sait pourquoi verrouiller une session est important ?",
+        ],
+        alert:
+          "Évite d’utiliser la session ouverte pour naviguer à la place de la personne. Montre plutôt le rappel depuis ton propre poste.",
+      },
+      {
+        title: "Commandes rigolotes et temporaires",
+        kind: "Terminal",
+        tags: ["yes", "ascii", "rickroll", "Ctrl+C"],
+        body: [
+          "Ces commandes ne doivent rien modifier. Elles affichent seulement du texte ou une animation temporaire dans le terminal actif.",
+          "Préviens que Ctrl+C arrête la plupart des blagues terminal. Pour les commandes avec timeout, l’arrêt est automatique.",
+          "Certaines commandes dépendent d’outils installés sur la machine : si l’outil manque, on passe à autre chose.",
+        ],
+        commands:
+          "timeout 5s yes \"Pense a verrouiller ta session.\"\n\ncommand -v cowsay >/dev/null && cowsay \"Session ouverte, cafe offert ?\" || printf '< Session ouverte, cafe offert ? >\\n'\n\ncommand -v figlet >/dev/null && figlet \"LOCK\" || printf '*** LOCK ***\\n'\n\ntimeout 10s curl -s parrot.live\n\nmpv --vo=tct --no-audio --really-quiet \"https://youtu.be/dQw4w9WgXcQ\"",
+        questions: [
+          "La commande se termine-t-elle toute seule ou clairement avec Ctrl+C ?",
+          "Est-ce que la commande écrit quelque chose sur le disque ?",
+          "Est-ce que la blague reste compréhensible sans mettre la personne en difficulté ?",
+        ],
+        tests: [
+          "Préférer timeout pour les commandes qui streament ou bouclent.",
+          "Vérifier avec command -v avant d’utiliser cowsay, figlet ou mpv.",
+          "Ne pas lancer de commande distante pipe vers sh ou bash.",
+          "Ne pas ajouter d’alias, de hook Git, de cron ou de modification de .bashrc.",
+        ],
+        alert:
+          "Ne lance jamais une commande récupérée sur Internet directement dans un shell. Pas de curl ... | sh, même pour une blague.",
+        tutorNote:
+          "Le rick roll terminal via mpv est optionnel : si l’outil n’est pas installé, garde le rappel simple.",
+      },
+      {
+        title: "Ce qui est hors limite",
+        kind: "Interdit",
+        tags: ["sécurité", "données", "confiance"],
+        body: [
+          "Ne supprime rien, ne déplace rien, ne chiffre rien, ne renomme rien et ne modifie aucun fichier de configuration.",
+          "N’envoie pas de message, ne fais pas de commit, ne change pas de dépôt distant et ne touche pas aux clés SSH ou tokens.",
+          "Ne lance rien qui reste actif après ton départ : pas de processus en arrière-plan, pas de tâche planifiée, pas d’alias piégé.",
+          "Ne prends pas de capture de données personnelles et ne lis pas les messages ou fichiers ouverts.",
+        ],
+        questions: [
+          "Est-ce que l’action modifie l’environnement de travail ?",
+          "Est-ce que l’action exploite la confiance de la personne ?",
+          "Est-ce que je peux annuler entièrement ce que j’ai fait ?",
+        ],
+        alert:
+          "Une blague qui touche aux fichiers, aux comptes ou à l’identité numérique n’est plus une blague.",
+        tutorNote:
+          "Si le doute existe, ne fais rien et contente-toi du rappel sécurité.",
+      },
+    ],
+  },
+  {
     id: "toolbox",
     number: "TB",
     shortTitle: "Toolbox",
@@ -775,6 +995,36 @@ window.PC_RUSH_REVIEWS = [
       "Terminer par un feedback actionnable et laisser des questions.",
     ],
     blocks: [
+      {
+        title: "Préliminaires officiels 42",
+        kind: "Cadre",
+        tags: ["formulaire 42", "dépôt", "scripts", "crash"],
+        body: [
+          "Les formulaires de rush commencent tous par le même cadre : rester courtois, constructif et sérieux, puis identifier les dysfonctionnements avec le groupe évalué.",
+          "L’évaluation doit porter uniquement sur le contenu du dépôt Git officiel du groupe ou de l’étudiant·e, idéalement cloné dans un dossier vide.",
+          "Avant de lancer une commande, vérifie les alias et les scripts utilisés pour l’évaluation. Les personnes évaluatrices et évaluées doivent comprendre ce qui va être exécuté.",
+          "Si l’évaluateur·rice n’a pas encore terminé le projet, le formulaire impose de lire le sujet complet avant la défense.",
+          "Pendant la défense, un segfault, bus error, crash, boucle infinie ou arrêt incontrôlé doit être traité comme un événement bloquant selon le barème.",
+        ],
+        commands:
+          "alias\npwd\ngit remote -v\ngit status --short\nfind . -maxdepth 2 -type f -printf '%P\\n' | sort",
+        questions: [
+          "Est-ce le dépôt Git officiel du groupe évalué ?",
+          "Le dépôt a-t-il été cloné dans un dossier vide ?",
+          "Quels scripts ou alias allons-nous utiliser, et les avez-vous relus ?",
+          "Le rendu contient-il uniquement les fichiers demandés ?",
+        ],
+        tests: [
+          "Bon propriétaire et bon projet.",
+          "Aucun fichier parasite ou mauvais répertoire.",
+          "Scripts et alias connus avant exécution.",
+          "Arrêt ou bascule en discussion technique si un crash bloquant apparaît.",
+        ],
+        alert:
+          "Ne lance pas un script de test opaque dans une review. Fais lire ou expliquer ce qui va être exécuté.",
+        tutorNote:
+          "Cette fiche vient des préliminaires communs aux formulaires Square, Skyscraper et Rosetta.",
+      },
       {
         title: "Déroulé universel d’une review",
         kind: "Trame",

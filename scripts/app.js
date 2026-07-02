@@ -63,6 +63,23 @@ function renderTags(tags) {
   `;
 }
 
+function renderBlockImage(image) {
+  if (!image?.src) {
+    return "";
+  }
+
+  const caption = image.caption
+    ? `<figcaption data-reading>${escapeHtml(image.caption)}</figcaption>`
+    : "";
+
+  return `
+    <figure class="block-image">
+      <img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt || "")}" loading="lazy">
+      ${caption}
+    </figure>
+  `;
+}
+
 function renderChecklist(review) {
   return `
     <section class="session-checklist" aria-label="Trame express">
@@ -131,6 +148,7 @@ function renderBlocks(review) {
           </div>
           ${renderTags(block.tags)}
           ${block.body.map((line) => `<p data-reading>${escapeHtml(line)}</p>`).join("")}
+          ${renderBlockImage(block.image)}
           ${commands}
           <div class="block-columns">
             ${questions}
