@@ -532,6 +532,193 @@ window.PC_RUSH_REVIEWS = [
     ],
   },
   {
+    id: "exams",
+    number: "EX",
+    shortTitle: "Exams",
+    title: "Exams - Surveillance et préparation",
+    focus: "Cadre, placement, pauses, incidents",
+    duration: "Avant et pendant l’exam",
+    goal: "Exam calme et équitable",
+    summary:
+      "Une trame pratique pour préparer la salle, faire entrer les piscineux·ses, rappeler les règles, gérer les pauses toilettes et réagir aux incidents courants pendant l’examen.",
+    checklist: [
+      "Sortir les piscineux·ses une heure avant l’examen.",
+      "Vérifier chaque poste : rien de branché en trop, un clavier et une souris connectés.",
+      "Ramasser les objets et préparer les feuilles à chaque poste.",
+      "Contrôler badges, poches, montres et rappels de règles à l’entrée.",
+      "Casser les groupes de potes et placer les personnes par rangées.",
+      "Rappeler que personne ne parle après franchissement de la moquette.",
+      "Ne répondre à aucune question technique pendant l’examen.",
+      "Escalader au staff dès qu’un problème dépasse le cadre de surveillance.",
+    ],
+    blocks: [
+      {
+        title: "Avant l’examen",
+        kind: "Préparation",
+        tags: ["H-1", "salle", "postes", "feuilles"],
+        body: [
+          "Une heure avant l’examen, faire sortir les piscineux·ses de la zone concernée pour préparer la salle sans pression.",
+          "Normalement, l’examen se prépare seulement en C1. Vérifie avec le staff si l’organisation du jour diffère.",
+          "Vérifie qu’il n’y a rien de branché en trop sur les postes : pas de périphérique parasite, pas de clé USB, pas de câble ou objet oublié.",
+          "Chaque poste doit avoir exactement ce qu’il faut pour composer : un clavier et une souris connectés.",
+          "Si un poste ne marche pas, retourne le clavier pour signaler clairement qu’il ne doit pas être utilisé.",
+          "Ramasse tout objet laissé en salle et place les feuilles à chaque poste : une ligne jaune et une ligne verte.",
+        ],
+        questions: [
+          "Est-ce que tous les postes utilisables ont un clavier et une souris ?",
+          "Est-ce qu’un poste doit être neutralisé avant l’entrée ?",
+          "Est-ce que les feuilles sont posées partout de manière homogène ?",
+        ],
+        tests: [
+          "Rien de plug en trop sur les machines.",
+          "Objets personnels ramassés ou sortis de la zone.",
+          "Postes défectueux clairement marqués avec clavier retourné.",
+          "Feuilles prêtes avant l’arrivée des candidat·es.",
+        ],
+        alert:
+          "Ne commence pas l’entrée tant que la salle n’est pas prête : une salle floue crée des discussions et des exceptions dès les premières minutes.",
+        tutorNote:
+          "Le calme de l’examen se joue beaucoup avant l’entrée. Préparer proprement évite d’avoir à improviser devant tout le monde.",
+      },
+      {
+        title: "Entrée en exam",
+        kind: "Accueil",
+        tags: ["badge", "poches", "placement", "règles"],
+        body: [
+          "À l’entrée, demander le badge avant de laisser entrer la personne.",
+          "Vérifier les poches et rappeler les règles : pas de montre, pas d’objet interdit, pas de communication.",
+          "Le badge doit rester visible sur la table pendant l’examen.",
+          "Brise les groupes de potes : un au fond, un devant, ou suffisamment éloignés pour éviter les échanges.",
+          "Place les personnes par rangée : par exemple une personne au fond, puis deux rangées plus loin, en gardant une logique claire.",
+          "Dès le franchissement de la moquette, plus personne ne doit parler.",
+          "Dès l’entrée en cluster, chacun·e regarde uniquement son écran.",
+        ],
+        questions: [
+          "Badge visible ?",
+          "Poches et objets interdits vérifiés ?",
+          "Groupe d’ami·es correctement séparé ?",
+          "La personne a-t-elle compris qu’elle ne parle plus après la moquette ?",
+        ],
+        tests: [
+          "Badge demandé avant l’entrée.",
+          "Placement non négocié avec les candidat·es.",
+          "Aucune discussion après la moquette.",
+          "Regard uniquement sur l’écran une fois installé·e.",
+        ],
+        alert:
+          "Pour un premier examen, reste respectueux·se mais intransigeant·e. La bienveillance ne consiste pas à laisser les règles devenir optionnelles.",
+        tutorNote:
+          "Une règle annoncée calmement et appliquée pareil pour tout le monde crée moins de tension qu’une règle négociée au cas par cas.",
+      },
+      {
+        title: "Règles pendant l’attente",
+        kind: "Cadre",
+        tags: ["attente", "sorties", "silence", "matériel"],
+        body: [
+          "Personne ne sort sous aucun prétexte avant le cadre défini par le staff.",
+          "Attendre 15 minutes avant d’autoriser une sortie de l’examen, sauf consigne contraire du staff.",
+          "Les pauses toilettes ne commencent qu’après 30 minutes d’attente.",
+          "Ne rien toucher : pas de clavier, pas de souris, pas de login et pas de manipulation avant l’heure de début de l’examen.",
+          "Ne pas écrire sur le brouillon avant le début autorisé.",
+          "Si besoin, donner un casque antibruit.",
+        ],
+        questions: [
+          "L’heure de début réelle a-t-elle été annoncée clairement ?",
+          "Est-ce que quelqu’un touche au clavier ou à la souris trop tôt ?",
+          "Est-ce qu’une demande de sortie doit attendre ou être remontée au staff ?",
+        ],
+        tests: [
+          "Aucun login avant l’heure.",
+          "Aucune écriture sur brouillon avant autorisation.",
+          "Aucune sortie improvisée.",
+          "Casque antibruit donné si besoin réel.",
+        ],
+        alert:
+          "Avant l’heure de début, la salle est déjà en mode examen : silence, immobilité sur le poste et mêmes règles pour tout le monde.",
+      },
+      {
+        title: "Posture de surveillance",
+        kind: "Posture",
+        tags: ["respect", "intransigeance", "triche"],
+        body: [
+          "Sois sans pitié sur les règles, surtout pour le premier exam, tout en restant respectueux·se.",
+          "Ne prends pas de plaisir à prendre quelqu’un en flag. Cache ton sourire, garde une posture neutre et reste factuel·le.",
+          "Le rôle n’est pas de piéger les candidat·es, mais de protéger l’équité de l’examen.",
+          "Si tu suspectes une triche, ne conclus pas activement seul·e. Observe, note les faits et remonte au staff.",
+          "Si la triche est très évidente, fais sortir la personne selon le cadre prévu et préviens immédiatement le staff.",
+        ],
+        questions: [
+          "Quels faits observables justifient mon intervention ?",
+          "Est-ce que je suis en train d’appliquer une règle ou de réagir à l’émotion du moment ?",
+          "Est-ce que ce cas doit être remonté au staff maintenant ?",
+        ],
+        tests: [
+          "Ton calme neutre.",
+          "Faits observables avant interprétation.",
+          "Escalade staff dès qu’il y a suspicion sérieuse.",
+          "Même niveau d’exigence pour tout le monde.",
+        ],
+        alert:
+          "Ne transforme pas la surveillance en démonstration d’autorité. Une décision ferme doit rester propre, explicable et alignée avec le cadre.",
+      },
+      {
+        title: "Pauses toilettes",
+        kind: "Déplacements",
+        tags: ["toilettes", "groupe", "C2", "30 minutes"],
+        body: [
+          "Les pauses toilettes se gèrent toutes les 30 minutes.",
+          "Amène les personnes aux toilettes par groupes de trois maximum.",
+          "Si besoin, va au C2 pour répartir les flux ou éviter une attente trop longue.",
+          "Pendant les déplacements, garde le groupe cadré : pas de discussion, pas d’arrêt inutile, pas d’échange avec d’autres personnes.",
+        ],
+        questions: [
+          "Combien de personnes partent en même temps ?",
+          "Est-ce que le trajet évite les échanges avec d’autres groupes ?",
+          "Est-ce que le C2 est nécessaire pour fluidifier ?",
+        ],
+        tests: [
+          "Maximum trois personnes par déplacement.",
+          "Cycle toutes les 30 minutes.",
+          "Silence et déplacement direct.",
+          "Retour clair en salle avant de faire partir le groupe suivant.",
+        ],
+        alert:
+          "Une pause toilettes mal cadrée devient vite une zone grise. Garde une règle simple, répétable et visible.",
+      },
+      {
+        title: "Pendant l’examen",
+        kind: "Support",
+        tags: ["examshell", "help", "status", "grademe"],
+        body: [
+          "Les commandes utiles à rappeler côté exam sont help et status.",
+          "Si examshell mouline dans le vide, faire Ctrl+C puis relancer.",
+          "Si grademe ne fonctionne plus, voir directement avec le staff.",
+          "On ne répond à aucune question technique.",
+          "Si tu vois une erreur dans le code, indique simplement que le problème vient de leur code, sans expliquer la correction.",
+          "Si vraiment tout a l’air bon mais que le comportement reste anormal, envoie un message Slack à David ou au contact staff prévu.",
+        ],
+        commands:
+          "help\nstatus\n\n# examshell bloque ou mouline\nCtrl+C\n# puis relancer la commande attendue",
+        questions: [
+          "Est-ce une question technique ? Si oui, on ne répond pas.",
+          "Est-ce un problème d’outil ou un problème dans le code de la personne ?",
+          "Est-ce que grademe est cassé pour plusieurs personnes ?",
+          "Est-ce que ce cas doit partir au staff ou à David ?",
+        ],
+        tests: [
+          "help et status connus.",
+          "Ctrl+C puis relance si examshell mouline.",
+          "grademe cassé : staff directement.",
+          "Aucune aide technique sur le contenu du code.",
+        ],
+        alert:
+          "Ne débugge pas le projet pendant l’examen. Tu surveilles le cadre et les outils, tu ne deviens pas correcteur·rice technique.",
+        tutorNote:
+          "Formulation utile : « Je ne peux pas répondre à une question technique pendant l’examen. Si l’outil lui-même ne fonctionne pas, je remonte au staff. »",
+      },
+    ],
+  },
+  {
     id: "rush-00",
     number: "00",
     shortTitle: "Rush 00",

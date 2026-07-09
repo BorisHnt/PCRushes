@@ -1,4 +1,4 @@
-const REVIEW_ORDER = ["toolbox", "rush-00", "rush-01", "rush-02", "trolls"];
+const REVIEW_ORDER = ["toolbox", "exams", "rush-00", "rush-01", "rush-02", "trolls"];
 
 function sortReviews(reviews) {
   return [...reviews].sort((left, right) => {
