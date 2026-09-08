@@ -1128,6 +1128,18 @@ window.PC_RUSH_REVIEWS = [
           "Ne présente pas la heap comme infinie. Explique plutôt qu’elle permet une taille et une durée de vie dynamiques.",
       },
       {
+        title: "Définitions",
+        kind: "Mémoire",
+        tags: ["stack", "heap", "malloc"],
+        body: [
+          "Stack (pile) : zone de mémoire gérée automatiquement lors des appels de fonctions. Elle stocke notamment les variables locales et les informations nécessaires au retour de chaque fonction. Son contenu disparaît quand la fonction se termine.",
+          "Heap (tas) : zone de mémoire utilisée pour les allocations dynamiques. Les données qui y sont placées restent disponibles jusqu’à ce que le programme les libère avec free, ou jusqu’à la fin du programme.",
+          "malloc : fonction de la bibliothèque standard C qui réserve sur la heap un bloc du nombre d’octets demandé. Elle renvoie l’adresse du bloc en cas de succès, ou NULL en cas d’échec ; la mémoire obtenue n’est pas initialisée et doit ensuite être libérée avec free.",
+        ],
+        questions: [],
+        tests: [],
+      },
+      {
         title: "Jeu de tests et générateur",
         kind: "Validation",
         tags: ["generator.py", "grilles", "impossible"],
